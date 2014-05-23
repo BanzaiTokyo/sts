@@ -26,11 +26,10 @@ int touchedRow, touchedCol;
 BOOL scrollingHorizontal, fallSeveralColumns;
 
 @interface STSScrollView : UIView {
-    UILabel *labels[NUMROWS];
+    UILabel *labels[NUMROWS*3];
     int numItems;
 }
--(void)scrollContentBy:(int)delta;
--(void)saveDataToGrid;
+-(void)saveDataScrolledBy:(int)delta;
 @end
 
 @interface STSViewController () {
@@ -187,77 +186,69 @@ BOOL scrollingHorizontal, fallSeveralColumns;
 @end
 
 @implementation STSScrollView
-+(instancetype)createScroller {
+-(instancetype)initWithFrame:(CGRect)frame {
     CGRect r = CGRectZero;
-    int numItems;
     if (!scrollingHorizontal) {
         numItems = NUMROWS;
-        r.origin = CGPointMake(touchedCol*cellSize.width, 0);
+        r.origin = CGPointMake(touchedCol*cellSize.width, -frame.size.height);
         r.size.width = cellSize.width;
-        r.size.height = screenSize.height;
+        r.size.height = frame.size.height*3;
     }
     else {
         numItems = NUMCOLS;
-        r.origin = CGPointMake(0, touchedRow*cellSize.height);
-        r.size.width = screenSize.width;
+        r.origin = CGPointMake(-frame.size.width, touchedRow*cellSize.height);
+        r.size.width = frame.size.width*3;
         r.size.height = cellSize.height;
     }
-    STSScrollView *result = [[STSScrollView alloc] initWithFrame:r];
-    result->numItems = numItems;
+    self = [super initWithFrame:r];
     r.size = cellSize;
-    for (int i=0; i<numItems; i++) {
+    for (int i=0; i<numItems*3; i++) {
         if (!scrollingHorizontal)
             r.origin = CGPointMake(0, i*cellSize.height);
         else
             r.origin = CGPointMake(i*cellSize.width, 0);
         
-        result->labels[i] = [[UILabel alloc] initWithFrame:CGRectInset(r, 1, 1)];
-        result->labels[i].textAlignment = NSTextAlignmentCenter;
-        result->labels[i].font = [UIFont fontWithName:@"Helvetica Neue" size:cellSize.height];
-        result->labels[i].backgroundColor = NORMALCOLOR;
+        labels[i] = [[UILabel alloc] initWithFrame:CGRectInset(r, 1, 1)];
+        labels[i].textAlignment = NSTextAlignmentCenter;
+        labels[i].font = [UIFont fontWithName:@"Helvetica Neue" size:cellSize.height];
+        labels[i].backgroundColor = NORMALCOLOR;
         int t;
         if (!scrollingHorizontal)
-            t = touchedCol*NUMROWS + i;
+            t = touchedCol*NUMROWS + i % numItems;
         else
-            t = i*NUMROWS + touchedRow;
-        result->labels[i].text = [NSString stringWithFormat:@"%c", grid[t].letter];
-        [result addSubview:result->labels[i]];
+            t = (i % numItems)*NUMROWS + touchedRow;
+        labels[i].text = [NSString stringWithFormat:@"%c", grid[t].letter];
+        [self addSubview:labels[i]];
     }
     
-    result.layer.shadowColor = [UIColor blackColor].CGColor;
-    result.layer.shadowOffset = CGSizeZero;
-    result.layer.shadowOpacity = 0.7;
-    result.layer.shadowRadius = 4;
-    result.layer.masksToBounds = NO;
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeZero;
+    self.layer.shadowOpacity = 0.7;
+    self.layer.shadowRadius = 4;
+    self.layer.masksToBounds = NO;
     if (!scrollingHorizontal)
-        r = CGRectInset(result.bounds, -4, 0);
+        r = CGRectInset(self.bounds, -4, 0);
     else
-        r = CGRectInset(result.bounds, 0, -4);
-    result.layer.shadowPath = [[UIBezierPath bezierPathWithRect:r] CGPath];
+        r = CGRectInset(self.bounds, 0, -4);
+    self.layer.shadowPath = [[UIBezierPath bezierPathWithRect:r] CGPath];
     
-    return result;
+    return self;
 }
 
--(void)scrollContentBy:(int)delta {
+-(void)saveDataScrolledBy:(int)delta {
     char temp[numItems];
-    int i;
+    int i, t;
     
     if (delta < 0)
         delta = numItems - (-delta % numItems);
     for (i=0; i<numItems; i++)
         temp[(i+delta)%numItems] = [labels[i].text characterAtIndex:0];
-    for (i=0; i<numItems; i++)
-        labels[i].text = [NSString stringWithFormat:@"%c", temp[i]];
-}
-
--(void)saveDataToGrid {
-    for (int i=0; i<numItems; i++) {
-        int t;
+    for (i=0; i<numItems; i++) {
         if (!scrollingHorizontal)
             t = touchedCol*NUMROWS + i;
         else
             t = i*NUMROWS + touchedRow;
-        grid[t].letter = [labels[i].text characterAtIndex:0];
+        grid[t].letter = temp[i];
         [gridView setLetterAtIndex:t];
     }
 }
@@ -314,23 +305,41 @@ int prevCol, prevRow;
             isScrolling = YES;
         }
         if (isScrolling) {
-            scroller = [STSScrollView createScroller];
-            [self.view addSubview:scroller];
+            scroller = [[STSScrollView alloc] initWithFrame:gridView.bounds];
+            [gridView addSubview:scroller];
         }
     }
-    else if (col != prevCol && scrollingHorizontal)
-        [scroller scrollContentBy:col - prevCol];
-    else if (row != prevRow && !scrollingHorizontal)
-        [scroller scrollContentBy:row - prevRow];
+    else {
+        if (scrollingHorizontal)
+            scroller.center = CGPointMake(scroller.center.x + p.x-prevTouch.x, scroller.center.y);
+        else
+            scroller.center = CGPointMake(scroller.center.x, scroller.center.y + p.y-prevTouch.y);
+        prevTouch = p;
+    }
     prevCol = col;  prevRow = row;
 }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (scroller) {
-        [scroller saveDataToGrid];
-        [scroller removeFromSuperview];
-        scroller = nil;
-        isScrolling = NO;
-        [self checkAfterPush];
+        [UIView animateWithDuration:FLASHTIME animations:^{
+            CGRect r = scroller.frame;
+            if (scrollingHorizontal)
+                r.origin.x = round(r.origin.x/cellSize.width)*cellSize.width;
+            else
+                r.origin.y = round(r.origin.y/cellSize.height)*cellSize.height;
+            scroller.frame = r;
+        }
+        completion:^(BOOL finished) {
+            if (finished) {
+                if (scrollingHorizontal)
+                    [scroller saveDataScrolledBy:prevCol - touchedCol];
+                else
+                    [scroller saveDataScrolledBy:prevRow - touchedRow];
+                [scroller removeFromSuperview];
+                scroller = nil;
+                isScrolling = NO;
+                [self checkAfterPush];
+            }
+        }];
     }
 }
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
