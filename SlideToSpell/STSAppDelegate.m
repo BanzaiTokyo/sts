@@ -7,14 +7,17 @@
 //
 
 #import "STSAppDelegate.h"
+#import "STSViewController.h"
 
 @implementation STSAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    return YES;
-}
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    STSViewController *vc = [[STSViewController alloc] init];
+    self.window.rootViewController = vc;
+    [self.window makeKeyAndVisible];
+    return YES;}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

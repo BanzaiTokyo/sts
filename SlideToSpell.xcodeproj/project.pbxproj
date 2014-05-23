@@ -13,26 +13,11 @@
 		8E63DA55192DE1F7006EF00F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA53192DE1F7006EF00F /* InfoPlist.strings */; };
 		8E63DA57192DE1F7006EF00F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA56192DE1F7006EF00F /* main.m */; };
 		8E63DA5B192DE1F7006EF00F /* STSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */; };
-		8E63DA5E192DE1F7006EF00F /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA5C192DE1F7006EF00F /* Main_iPhone.storyboard */; };
-		8E63DA61192DE1F7006EF00F /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA5F192DE1F7006EF00F /* Main_iPad.storyboard */; };
 		8E63DA64192DE1F7006EF00F /* STSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA63192DE1F7006EF00F /* STSViewController.m */; };
 		8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA65192DE1F7006EF00F /* Images.xcassets */; };
-		8E63DA6D192DE1F7006EF00F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA6C192DE1F7006EF00F /* XCTest.framework */; };
-		8E63DA6E192DE1F7006EF00F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA4A192DE1F7006EF00F /* Foundation.framework */; };
-		8E63DA6F192DE1F7006EF00F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA4E192DE1F7006EF00F /* UIKit.framework */; };
-		8E63DA77192DE1F7006EF00F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA75192DE1F7006EF00F /* InfoPlist.strings */; };
-		8E63DA79192DE1F7006EF00F /* SlideToSpellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA78192DE1F7006EF00F /* SlideToSpellTests.m */; };
+		8E63DA86192E4EF9006EF00F /* STSGameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA85192E4EF9006EF00F /* STSGameLogic.m */; };
+		8E9B6AB9192E6A74005B4210 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9B6AB8192E6A74005B4210 /* words.txt */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		8E63DA70192DE1F7006EF00F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8E63DA3F192DE1F7006EF00F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8E63DA46192DE1F7006EF00F;
-			remoteInfo = SlideToSpell;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8E63DA47192DE1F7006EF00F /* SlideToSpell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideToSpell.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,16 +30,12 @@
 		8E63DA58192DE1F7006EF00F /* SlideToSpell-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlideToSpell-Prefix.pch"; sourceTree = "<group>"; };
 		8E63DA59192DE1F7006EF00F /* STSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSAppDelegate.h; sourceTree = "<group>"; };
 		8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSAppDelegate.m; sourceTree = "<group>"; };
-		8E63DA5D192DE1F7006EF00F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		8E63DA60192DE1F7006EF00F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		8E63DA62192DE1F7006EF00F /* STSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = STSViewController.h; sourceTree = "<group>"; };
 		8E63DA63192DE1F7006EF00F /* STSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = STSViewController.m; sourceTree = "<group>"; };
 		8E63DA65192DE1F7006EF00F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8E63DA6B192DE1F7006EF00F /* SlideToSpellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlideToSpellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E63DA6C192DE1F7006EF00F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		8E63DA74192DE1F7006EF00F /* SlideToSpellTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SlideToSpellTests-Info.plist"; sourceTree = "<group>"; };
-		8E63DA76192DE1F7006EF00F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8E63DA78192DE1F7006EF00F /* SlideToSpellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SlideToSpellTests.m; sourceTree = "<group>"; };
+		8E63DA84192E4EF9006EF00F /* STSGameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameLogic.h; sourceTree = "<group>"; };
+		8E63DA85192E4EF9006EF00F /* STSGameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameLogic.m; sourceTree = "<group>"; };
+		8E9B6AB8192E6A74005B4210 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,16 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8E63DA68192DE1F7006EF00F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8E63DA6D192DE1F7006EF00F /* XCTest.framework in Frameworks */,
-				8E63DA6F192DE1F7006EF00F /* UIKit.framework in Frameworks */,
-				8E63DA6E192DE1F7006EF00F /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -85,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				8E63DA50192DE1F7006EF00F /* SlideToSpell */,
-				8E63DA72192DE1F7006EF00F /* SlideToSpellTests */,
 				8E63DA49192DE1F7006EF00F /* Frameworks */,
 				8E63DA48192DE1F7006EF00F /* Products */,
 			);
@@ -95,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				8E63DA47192DE1F7006EF00F /* SlideToSpell.app */,
-				8E63DA6B192DE1F7006EF00F /* SlideToSpellTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,7 +75,6 @@
 				8E63DA4A192DE1F7006EF00F /* Foundation.framework */,
 				8E63DA4C192DE1F7006EF00F /* CoreGraphics.framework */,
 				8E63DA4E192DE1F7006EF00F /* UIKit.framework */,
-				8E63DA6C192DE1F7006EF00F /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,10 +82,10 @@
 		8E63DA50192DE1F7006EF00F /* SlideToSpell */ = {
 			isa = PBXGroup;
 			children = (
+				8E63DA84192E4EF9006EF00F /* STSGameLogic.h */,
+				8E63DA85192E4EF9006EF00F /* STSGameLogic.m */,
 				8E63DA59192DE1F7006EF00F /* STSAppDelegate.h */,
 				8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */,
-				8E63DA5C192DE1F7006EF00F /* Main_iPhone.storyboard */,
-				8E63DA5F192DE1F7006EF00F /* Main_iPad.storyboard */,
 				8E63DA62192DE1F7006EF00F /* STSViewController.h */,
 				8E63DA63192DE1F7006EF00F /* STSViewController.m */,
 				8E63DA65192DE1F7006EF00F /* Images.xcassets */,
@@ -129,28 +97,11 @@
 		8E63DA51192DE1F7006EF00F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E9B6AB8192E6A74005B4210 /* words.txt */,
 				8E63DA52192DE1F7006EF00F /* SlideToSpell-Info.plist */,
 				8E63DA53192DE1F7006EF00F /* InfoPlist.strings */,
 				8E63DA56192DE1F7006EF00F /* main.m */,
 				8E63DA58192DE1F7006EF00F /* SlideToSpell-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8E63DA72192DE1F7006EF00F /* SlideToSpellTests */ = {
-			isa = PBXGroup;
-			children = (
-				8E63DA78192DE1F7006EF00F /* SlideToSpellTests.m */,
-				8E63DA73192DE1F7006EF00F /* Supporting Files */,
-			);
-			path = SlideToSpellTests;
-			sourceTree = "<group>";
-		};
-		8E63DA73192DE1F7006EF00F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8E63DA74192DE1F7006EF00F /* SlideToSpellTests-Info.plist */,
-				8E63DA75192DE1F7006EF00F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -175,24 +126,6 @@
 			productReference = 8E63DA47192DE1F7006EF00F /* SlideToSpell.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8E63DA6A192DE1F7006EF00F /* SlideToSpellTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8E63DA7F192DE1F7006EF00F /* Build configuration list for PBXNativeTarget "SlideToSpellTests" */;
-			buildPhases = (
-				8E63DA67192DE1F7006EF00F /* Sources */,
-				8E63DA68192DE1F7006EF00F /* Frameworks */,
-				8E63DA69192DE1F7006EF00F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8E63DA71192DE1F7006EF00F /* PBXTargetDependency */,
-			);
-			name = SlideToSpellTests;
-			productName = SlideToSpellTests;
-			productReference = 8E63DA6B192DE1F7006EF00F /* SlideToSpellTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -202,11 +135,6 @@
 				CLASSPREFIX = STS;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Toxa;
-				TargetAttributes = {
-					8E63DA6A192DE1F7006EF00F = {
-						TestTargetID = 8E63DA46192DE1F7006EF00F;
-					};
-				};
 			};
 			buildConfigurationList = 8E63DA42192DE1F7006EF00F /* Build configuration list for PBXProject "SlideToSpell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -222,7 +150,6 @@
 			projectRoot = "";
 			targets = (
 				8E63DA46192DE1F7006EF00F /* SlideToSpell */,
-				8E63DA6A192DE1F7006EF00F /* SlideToSpellTests */,
 			);
 		};
 /* End PBXProject section */
@@ -232,18 +159,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E63DA61192DE1F7006EF00F /* Main_iPad.storyboard in Resources */,
 				8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */,
-				8E63DA5E192DE1F7006EF00F /* Main_iPhone.storyboard in Resources */,
+				8E9B6AB9192E6A74005B4210 /* words.txt in Resources */,
 				8E63DA55192DE1F7006EF00F /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8E63DA69192DE1F7006EF00F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8E63DA77192DE1F7006EF00F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,57 +174,18 @@
 			files = (
 				8E63DA57192DE1F7006EF00F /* main.m in Sources */,
 				8E63DA5B192DE1F7006EF00F /* STSAppDelegate.m in Sources */,
+				8E63DA86192E4EF9006EF00F /* STSGameLogic.m in Sources */,
 				8E63DA64192DE1F7006EF00F /* STSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8E63DA67192DE1F7006EF00F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8E63DA79192DE1F7006EF00F /* SlideToSpellTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8E63DA71192DE1F7006EF00F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8E63DA46192DE1F7006EF00F /* SlideToSpell */;
-			targetProxy = 8E63DA70192DE1F7006EF00F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8E63DA53192DE1F7006EF00F /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8E63DA54192DE1F7006EF00F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		8E63DA5C192DE1F7006EF00F /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E63DA5D192DE1F7006EF00F /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		8E63DA5F192DE1F7006EF00F /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E63DA60192DE1F7006EF00F /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		8E63DA75192DE1F7006EF00F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8E63DA76192DE1F7006EF00F /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -346,7 +225,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -379,7 +258,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -394,6 +273,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlideToSpell/SlideToSpell-Prefix.pch";
 				INFOPLIST_FILE = "SlideToSpell/SlideToSpell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -407,48 +287,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlideToSpell/SlideToSpell-Prefix.pch";
 				INFOPLIST_FILE = "SlideToSpell/SlideToSpell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		8E63DA80192DE1F7006EF00F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlideToSpell.app/SlideToSpell";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SlideToSpell/SlideToSpell-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "SlideToSpellTests/SlideToSpellTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		8E63DA81192DE1F7006EF00F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SlideToSpell.app/SlideToSpell";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SlideToSpell/SlideToSpell-Prefix.pch";
-				INFOPLIST_FILE = "SlideToSpellTests/SlideToSpellTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -471,14 +312,7 @@
 				8E63DA7E192DE1F7006EF00F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		8E63DA7F192DE1F7006EF00F /* Build configuration list for PBXNativeTarget "SlideToSpellTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8E63DA80192DE1F7006EF00F /* Debug */,
-				8E63DA81192DE1F7006EF00F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
