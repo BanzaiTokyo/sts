@@ -93,12 +93,12 @@ int children[4];
 
   NSLog(@"loading dictionary");
   NSString *fileString = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"words" ofType:@"txt"] encoding:NSUTF8StringEncoding error: nil];
-  NSArray *a = [NSArray arrayWithArray:[fileString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+  allWords = [NSArray arrayWithArray:[fileString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
   
   dict = [[Trie alloc] init];
   
-  NSLog(@"parsing dictionary of %i words", [a count]);
-  for (NSString *word in a)
+  NSLog(@"parsing dictionary of %i words", [allWords count]);
+  for (NSString *word in allWords)
   [GameLogic insertWord: word];
   NSLog(@"trie parsed");
 }
@@ -134,7 +134,7 @@ int children[4];
       b = b | [s isEqualToSet:[NSSet setWithArray:a]];
     if (!b) {
       //NSLog(@"%@", dsequence);
-      //NSLog(@"%@", p->word);
+      NSLog(@"%@", p->word);
 
       [Cascads addObject:dsequence];
       [Words addObject:p->word];
@@ -176,6 +176,7 @@ int children[4];
     if (board[t] != BORDER)
       [GameLogic descend:t :p :searched :sequence :0]; //DFS
   }
+    NSLog(@"%d words found", [Cascads count]);
 }
 
 +(int)calcCascadeScore:(NSArray*)word {
@@ -183,6 +184,118 @@ int children[4];
   for (NSNumber *n in word)
     result += letterScore[grid[[n intValue]].letter-65];
   return result*word.count;
+}
+
++(void)countGridLetters {
+    memset(gridLetterCount, 0, ALPHA_SIZE);
+    for (int i=0; i<GRIDSIZE; i++)
+        gridLetterCount[grid[i].letter-65]++;
+}
+
++(BOOL)wordCanBePuzzled {
+    int i;
+    char wordLetterCount[ALPHA_SIZE];
+    memset(wordLetterCount, 0, ALPHA_SIZE);
+    for (i=0; i<wordToFind.length; i++) {
+        char n = [wordToFind characterAtIndex:i] - 65;
+        wordLetterCount[n]++;
+    }
+    BOOL result = YES;
+    for (i=0; i<ALPHA_SIZE; i++)
+        result = result && wordLetterCount[i] <= gridLetterCount[i];
+    return result;
+}
+
++(int)longestStraightSegment:(NSArray *)cascade {
+    int i, result = 0, cell1, cell2, row, col, prevRow, prevCol, isHorizontal;
+    if ([cascade count] < 2)
+        return 1;
+    cell1 = [cascade[0] intValue];  cell2 = [cascade[1] intValue];
+    prevRow = cell1 % NUMROWS;  row = cell2 % NUMROWS;
+    prevCol = cell1 / NUMROWS;  col = cell2 / NUMROWS;
+    isHorizontal = prevRow == row;
+    cell1 = cell2;
+    prevRow = row;  prevCol = col;
+    i = result = 2;
+    while (i < [cascade count]) {
+        cell2 = [cascade[i] intValue];
+        row = cell2 % NUMROWS;  col = cell2 / NUMROWS;
+        if ((row == prevRow && isHorizontal) || (col == prevCol && !isHorizontal))
+            result++;
+        else {
+            result = 2;
+        }
+        cell1 = cell2;
+        isHorizontal = prevRow == row;
+        prevRow = row;  prevCol = col;
+        i++;
+    }
+    return result;
+}
+
++(NSArray *)getCascadeToFold {
+    if (![Cascads count])
+        return nil;
+    if ([Cascads count] == 1)
+        return Cascads[0];
+    
+    NSComparator sorter = ^NSComparisonResult(id obj1, id obj2) {
+        NSUInteger c1 = [obj1 count], c2 = [obj2 count];
+        if (c1 > c2)
+            return NSOrderedDescending;
+        else if (c1 < c2)
+            return NSOrderedAscending;
+        else {
+            c1 = [obj1[0] intValue]; c2 = [obj2[0] intValue];
+            int row1 = c1 % NUMROWS, row2 = c2 % NUMROWS;
+            if (row1 == row2) {
+                if (c1 > c2)
+                    return NSOrderedAscending;
+                else if (c1 < c2)
+                    return NSOrderedDescending;
+                else
+                    return NSOrderedSame;
+            }
+            else if (row1 > row2)
+                return NSOrderedAscending;
+            else
+                return NSOrderedDescending;
+        }
+    };
+    [Cascads sortUsingComparator:sorter];
+    NSArray *c1 = Cascads[0], *c2 = Cascads[1], *result;
+    if ([c1 count] < [c2 count]) {
+        NSLog(@"shortest %@", c1);
+        return c1;
+    }
+    int row1 = [c1[0] intValue], row2 = [c2[0] intValue], col1, col2;
+    col1 = row1 / NUMROWS;  col2 = row2 / NUMROWS;
+    row1 = row1 % NUMROWS;  row2 = row2 % NUMROWS;
+    if (row1 == row2) {
+        if (col1 == col2) {
+            int ls1 = [self longestStraightSegment:c1], ls2 = [self longestStraightSegment:c2];
+            if (ls1 >= ls2)
+                result = c1;
+            else
+                result = c2;
+            NSLog(@"same begin point, longest segment %d %@", MAX(ls1, ls2), result);
+        }
+        else {
+            if (col1 < col2)
+                result = c1;
+            else if (col2 < col1)
+                result = c2;
+            NSLog(@"same row, leftmost column %d", MIN(col1, col2));
+        }
+    }
+    else {
+        if (row1 > row2)
+            result = c1;
+        else if (row2 > row1)
+            result = c2;
+        NSLog(@"lowest %@", result);
+    }
+    return result;
 }
 
 @end

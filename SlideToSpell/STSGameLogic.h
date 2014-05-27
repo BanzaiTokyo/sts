@@ -26,8 +26,10 @@ typedef struct {
 } GridCell;
 
 GridCell grid[GRIDSIZE];
+char gridLetterCount[ALPHA_SIZE]; //char is just for 1-byte size, anyway array value cannot be larger than GRIDSIZE
 NSMutableArray *Cascads, *Words, *wordsLog;
-int score;
+NSArray *allWords, *cascadeToFold;
+NSString *wordToFind;
 
 @interface Trie: NSObject {
 @public
@@ -43,4 +45,7 @@ int letterScore[ALPHA_SIZE];
 +(char)getNextLetter;
 +(void)findCascades;
 +(int)calcCascadeScore:(NSArray*)word;
++(void)countGridLetters;
++(BOOL)wordCanBePuzzled;
++(NSArray *)getCascadeToFold;
 @end

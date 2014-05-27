@@ -8,7 +8,6 @@
 
 #import "AudioToolbox/AudioToolbox.h"
 #import "STSViewController.h"
-#import "STSGameLogic.h"
 
 #define NORMALCOLOR [UIColor whiteColor]
 #define HIGHLIGHTCOLOR [UIColor redColor]
@@ -18,19 +17,8 @@
 
 CGSize screenSize, cellSize;
 
-@class STSGridView;
-@class STSViewController;
-STSGridView *gridView;
-
 int touchedRow, touchedCol;
 BOOL scrollingHorizontal, fallSeveralColumns;
-
-@interface STSScrollView : UIView {
-    UILabel *labels[NUMROWS*3];
-    int numItems;
-}
--(void)saveDataScrolledBy:(int)delta;
-@end
 
 @interface STSViewController () {
     BOOL isScrolling;
@@ -40,18 +28,10 @@ BOOL scrollingHorizontal, fallSeveralColumns;
 -(void)checkAfterPush;
 @end
 
-@interface STSGridView : UIView {
-    UILabel *labels[GRIDSIZE];
-    STSViewController *parent;
-}
-@end
 @implementation STSGridView
--(instancetype)initWithFrame:(CGRect)frame andParent:(STSViewController *)vc {
-    self = [super initWithFrame:frame];
-    parent = vc;
+-(void)createGrid {
     for (int i=0; i<GRIDSIZE; i++)
         [self createLabelAtIndex:i];
-    return self;
 }
 
 -(void)createLabelAtIndex:(int)idx {
@@ -70,6 +50,10 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     else
         labels[idx].backgroundColor = NORMALCOLOR;
     labels[idx].text = [NSString stringWithFormat:@"%c", grid[idx].letter];
+}
+
+-(void)halfHighlight:(int)idx {
+    labels[idx].backgroundColor = [UIColor blueColor];
 }
 
 -(void)flashCascade:(NSArray *)cascade {
@@ -180,7 +164,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
             t--;  numFallen++;
         }
     }
-    [parent performSelector:@selector(checkAfterPush) withObject:nil afterDelay:maxDelay+FALLTIME*iMaxDelay/(NUMROWS-1)];
+    [_parent performSelector:@selector(checkAfterPush) withObject:nil afterDelay:maxDelay+FALLTIME*iMaxDelay/(NUMROWS-1)];
 }
 
 @end
@@ -249,7 +233,6 @@ BOOL scrollingHorizontal, fallSeveralColumns;
         else
             t = i*NUMROWS + touchedRow;
         grid[t].letter = temp[i];
-        [gridView setLetterAtIndex:t];
     }
 }
 @end
@@ -259,41 +242,53 @@ BOOL scrollingHorizontal, fallSeveralColumns;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGRect r = [[UIScreen mainScreen] bounds];
-    screenSize = r.size;
-    cellSize.width = r.size.width / NUMCOLS;
-    cellSize.height = r.size.height / NUMROWS;
-    self.view.backgroundColor = [UIColor greenColor];
-    gridView = [[STSGridView alloc] initWithFrame:r andParent:self];
-    [self.view addSubview:gridView];
+    cellSize.width = _gridView.frame.size.width / NUMCOLS;
+    cellSize.height = _gridView.frame.size.height / NUMROWS;
+    _gridView.parent = self;
+    [_gridView createGrid];
     [self initGame];
 }
-
--(void)initGame {
+- (void)viewDidLayoutSubviews {
+    
+}
+- (IBAction)initGame {
+    self.score = 0;
     for (int i=0; i<GRIDSIZE; i++) {
         grid[i].highlighted = NO;
         grid[i].letter = [GameLogic getNextLetter];
-        [gridView setLetterAtIndex:i];
+        [_gridView setLetterAtIndex:i];
     }
+    [GameLogic countGridLetters];
+    _lastWord.text = @"";
+    do {
+        int idx = arc4random() % (allWords.count/2-2753) + 2753;
+        wordToFind = [allWords objectAtIndex:idx*2];
+        if (!wordToFind)
+            wordToFind = @"PITON";
+        else
+            wordToFind = [wordToFind uppercaseString];
+    } while (![GameLogic wordCanBePuzzled]);
+    _labelWordToFind.text = wordToFind;
     isScrolling = NO;
     scroller = nil;
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapField:)];
-    [gridView addGestureRecognizer:tapGesture];
+    [_gridView addGestureRecognizer:tapGesture];
     [self checkAfterPush];
 }
+
 
 CGPoint prevTouch;
 int prevCol, prevRow;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    CGPoint p = [touch locationInView:gridView];
+    CGPoint p = [touch locationInView:_gridView];
     prevTouch = p;
     touchedCol = prevCol = p.x / cellSize.width;
     touchedRow = prevRow = p.y / cellSize.height;
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
-    CGPoint p = [touch locationInView:gridView];
+    CGPoint p = [touch locationInView:_gridView];
     int col = p.x / cellSize.width, row = p.y / cellSize.height;
     if (!isScrolling) {
         if (abs(p.x-prevTouch.x) > cellSize.width*0.2) {
@@ -305,8 +300,8 @@ int prevCol, prevRow;
             isScrolling = YES;
         }
         if (isScrolling) {
-            scroller = [[STSScrollView alloc] initWithFrame:gridView.bounds];
-            [gridView addSubview:scroller];
+            scroller = [[STSScrollView alloc] initWithFrame:_gridView.bounds];
+            [_gridView addSubview:scroller];
         }
     }
     else {
@@ -347,7 +342,7 @@ int prevCol, prevRow;
 }
 
 -(void)tapField:(UIGestureRecognizer *)gestureRecognizer {
-    CGPoint p = [gestureRecognizer locationInView:gridView];
+    CGPoint p = [gestureRecognizer locationInView:_gridView];
     int col = p.x / cellSize.width, row = p.y / cellSize.height, idx;
     idx = col*NUMROWS+row;
     if (grid[idx].highlighted) {
@@ -360,28 +355,51 @@ int prevCol, prevRow;
             }
         if (cascadeswithCell == 1)
             [self flashCascade:cascade];
-        else
-            ; //tapped letter belongs to several words, don't know which to remove
+        else if ([cascadeToFold containsObject:@(idx)])
+            [self flashCascade:cascadeToFold];
     }
 }
 
 -(void)checkAfterPush {
+    for (int i=0; i<GRIDSIZE; i++)
+        [_gridView setLetterAtIndex:i];
     [GameLogic findCascades];
-    NSMutableSet *allFoundDice = [NSMutableSet setWithCapacity:Words.count*MINWORDLENGTH];
-    for (NSArray *set in Cascads)
-        [allFoundDice addObjectsFromArray:set];
+    /*NSArray **/cascadeToFold = [GameLogic getCascadeToFold];
     for (int i=0; i<GRIDSIZE; i++) {
-        grid[i].highlighted = [allFoundDice containsObject:@(i)];
-        [gridView setLetterAtIndex:i];
+        grid[i].highlighted = [cascadeToFold containsObject:@(i)];
+        [_gridView setLetterAtIndex:i];
     }
+    for (NSArray *c in Cascads)
+        if (![c isEqualToArray:cascadeToFold])
+            for (NSNumber *n in c)
+                [_gridView halfHighlight:[n intValue]];
+    for (NSNumber *n in cascadeToFold)
+        [_gridView setLetterAtIndex:[n intValue]];
+
+    [GameLogic countGridLetters];
+    if (![GameLogic wordCanBePuzzled]) {
+        _labelWordToFind.text = @"---";
+    }
+    else
+        _labelWordToFind.text = wordToFind;
+    //if (cascadeToFold)
+      //  [self flashCascade:cascadeToFold];
 }
 
 -(void)flashCascade:(NSArray *)cascade {
-    [gridView flashCascade:cascade];
+    [_gridView flashCascade:cascade];
+    self.score += [GameLogic calcCascadeScore:cascade];
+    _lastWord.text = @"";
     for (NSNumber *n in cascade) {
-        grid[[n intValue]].letter = 0;
-        grid[[n intValue]].highlighted = NO;
+        int i = [n intValue];
+        _lastWord.text = [NSString stringWithFormat:@"%@%c", _lastWord.text, grid[i].letter];
+        grid[i].letter = 0;
+        grid[i].highlighted = NO;
     }
 }
 
+-(void)setScore:(NSInteger)score {
+    _score = score;
+    _labelScore.text = [NSString stringWithFormat:@"%d", score];
+}
 @end

@@ -13,11 +13,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    STSViewController *vc = [[STSViewController alloc] init];
-    self.window.rootViewController = vc;
-    [self.window makeKeyAndVisible];
-    return YES;}
+    return YES;
+}
 							
 - (void)applicationWillResignActive:(UIApplication *)application
 {

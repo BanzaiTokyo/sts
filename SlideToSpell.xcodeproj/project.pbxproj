@@ -17,6 +17,7 @@
 		8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA65192DE1F7006EF00F /* Images.xcassets */; };
 		8E63DA86192E4EF9006EF00F /* STSGameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA85192E4EF9006EF00F /* STSGameLogic.m */; };
 		8E9B6AB9192E6A74005B4210 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9B6AB8192E6A74005B4210 /* words.txt */; };
+		8E9B6ABD19334D2B005B4210 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8E63DA84192E4EF9006EF00F /* STSGameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSGameLogic.h; sourceTree = "<group>"; };
 		8E63DA85192E4EF9006EF00F /* STSGameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameLogic.m; sourceTree = "<group>"; };
 		8E9B6AB8192E6A74005B4210 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
+		8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */,
 				8E63DA62192DE1F7006EF00F /* STSViewController.h */,
 				8E63DA63192DE1F7006EF00F /* STSViewController.m */,
+				8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */,
 				8E63DA65192DE1F7006EF00F /* Images.xcassets */,
 				8E63DA51192DE1F7006EF00F /* Supporting Files */,
 			);
@@ -160,6 +163,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */,
+				8E9B6ABD19334D2B005B4210 /* Storyboard.storyboard in Resources */,
 				8E9B6AB9192E6A74005B4210 /* words.txt in Resources */,
 				8E63DA55192DE1F7006EF00F /* InfoPlist.strings in Resources */,
 			);
