@@ -342,6 +342,8 @@ int prevCol, prevRow;
 }
 
 -(void)tapField:(UIGestureRecognizer *)gestureRecognizer {
+    if (isScrolling)
+        return;
     CGPoint p = [gestureRecognizer locationInView:_gridView];
     int col = p.x / cellSize.width, row = p.y / cellSize.height, idx;
     idx = col*NUMROWS+row;

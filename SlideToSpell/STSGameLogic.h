@@ -15,8 +15,7 @@
 
 #define ALPHA_SIZE 26 //number of letters in our alphabet
 #define BORDER ALPHA_SIZE
-#define WSIZE = 24 //longest word read in dictionary
-#define MINWORDLENGTH 5
+#define MINWORDLENGTH 3
 #define BOARDROWS (NUMROWS+2)
 #define BOARDSIZE (NUMCOLS+2)*BOARDROWS
 

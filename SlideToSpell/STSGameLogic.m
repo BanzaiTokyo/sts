@@ -103,7 +103,7 @@ int children[4];
   NSLog(@"trie parsed");
 }
 
-+(void)descend:(int)cubeIndex :(Trie*)p :(NSMutableArray *)searched :(NSMutableArray *)sequence :(int)depth {
++(void)descend:(int)cubeIndex :(Trie*)p :(NSMutableArray *)searched :(NSMutableArray *)sequence :(int)depth :(BOOL)directionDown {
   depth++;
   NSMutableArray *dsearched = [NSMutableArray arrayWithArray:searched];
   NSMutableArray *dsequence = [NSMutableArray arrayWithArray:sequence];
@@ -117,11 +117,9 @@ int children[4];
   if (p->count) { //is this a valid prefix? Are there any remaining words that use it?
     [dsearched replaceObjectAtIndex:cubeIndex withObject:[NSNumber numberWithBool:YES]]; //mark this cube as used
     [dsequence addObject:[NSNumber numberWithInt:realIndex]];
-    for (int i = 0; i < 4; i++) { //descend to each neighboring cube
-      int child = cubeIndex + children[i];
-      if ((board[child] != BORDER) && ![[dsearched objectAtIndex:child] boolValue]) //faster to check here
-        [GameLogic descend:child :p :dsearched :dsequence :depth];
-    }
+    int child = cubeIndex + (directionDown ? 1 : BOARDROWS);
+    if ((board[child] != BORDER) && ![[dsearched objectAtIndex:child] boolValue]) //faster to check here
+          [GameLogic descend:child :p :dsearched :dsequence :depth :directionDown];
   }
   
   if (p->word && (depth >= MINWORDLENGTH)) {
@@ -171,10 +169,11 @@ int children[4];
   for(int i = 0; i < BOARDSIZE; i++)
     [searched addObject:[NSNumber numberWithBool:NO]];
   
-  for(int i = 0; i < BOARDSIZE; i++) {
-    int t = (i / BOARDROWS+1)*BOARDROWS - i % BOARDROWS - 1;
-    if (board[t] != BORDER)
-      [GameLogic descend:t :p :searched :sequence :0]; //DFS
+  for(int i = BOARDROWS+1; i < BOARDSIZE-BOARDROWS-1; i++) {
+      if (board[i] != BORDER) {
+        [GameLogic descend:i :p :searched :sequence :0 :YES]; //DFS
+        [GameLogic descend:i :p :searched :sequence :0 :NO]; //DFS
+      }
   }
     NSLog(@"%d words found", [Cascads count]);
 }
