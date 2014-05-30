@@ -15,8 +15,6 @@
 #define FLASHSCALEFACTOR 2
 #define FALLTIME 0.6
 
-#define ROUNDTIME 30
-
 CGSize screenSize, cellSize;
 
 int touchedRow, touchedCol;
@@ -283,22 +281,20 @@ BOOL scrollingHorizontal, fallSeveralColumns;
 
 
 CGPoint prevTouch;
-int prevCol, prevRow;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (gameTime <= 0 && !zenMode)
+    if ((gameTime <= 0 && !zenMode) || lettersFalling)
         return;
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:_gridView];
     prevTouch = p;
-    touchedCol = prevCol = p.x / cellSize.width;
-    touchedRow = prevRow = p.y / cellSize.height;
+    touchedCol = p.x / cellSize.width;
+    touchedRow = p.y / cellSize.height;
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (gameTime <= 0 && !zenMode)
+    if ((gameTime <= 0 && !zenMode) || lettersFalling)
         return;
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:_gridView];
-    int col = p.x / cellSize.width, row = p.y / cellSize.height;
     if (!isScrolling) {
         if (abs(p.x-prevTouch.x) > cellSize.width*0.2) {
             scrollingHorizontal = YES;
@@ -320,7 +316,6 @@ int prevCol, prevRow;
             scroller.center = CGPointMake(scroller.center.x, scroller.center.y + p.y-prevTouch.y);
         prevTouch = p;
     }
-    prevCol = col;  prevRow = row;
 }
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (scroller) {
@@ -334,10 +329,12 @@ int prevCol, prevRow;
         }
         completion:^(BOOL finished) {
             if (finished) {
+                CGFloat delta;
                 if (scrollingHorizontal)
-                    [scroller saveDataScrolledBy:prevCol - touchedCol];
+                    delta = (scroller.frame.origin.x + _gridView.bounds.size.width)/cellSize.width;
                 else
-                    [scroller saveDataScrolledBy:prevRow - touchedRow];
+                    delta = (scroller.frame.origin.y + _gridView.bounds.size.height)/cellSize.height;
+                [scroller saveDataScrolledBy:round(delta)];
                 [scroller removeFromSuperview];
                 scroller = nil;
                 isScrolling = NO;
@@ -351,7 +348,7 @@ int prevCol, prevRow;
 }
 
 -(void)tapField:(UIGestureRecognizer *)gestureRecognizer {
-    if (gameTime <= 0 && !zenMode)
+    if ((gameTime <= 0 && !zenMode) || lettersFalling)
         return;
     if (isScrolling)
         return;

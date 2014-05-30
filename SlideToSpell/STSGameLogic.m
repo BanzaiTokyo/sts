@@ -132,7 +132,7 @@ int children[4];
       b = b | [s isEqualToSet:[NSSet setWithArray:a]];
     if (!b) {
       //NSLog(@"%@", dsequence);
-      NSLog(@"%@", p->word);
+      //NSLog(@"%@", p->word);
 
       [Cascads addObject:dsequence];
       [Words addObject:p->word];
@@ -175,7 +175,7 @@ int children[4];
         [GameLogic descend:i :p :searched :sequence :0 :NO]; //DFS
       }
   }
-    NSLog(@"%d words found", [Cascads count]);
+    //NSLog(@"%d words found", [Cascads count]);
 }
 
 +(int)calcCascadeScore:(NSArray*)word {

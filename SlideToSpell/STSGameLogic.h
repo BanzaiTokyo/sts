@@ -15,10 +15,11 @@
 
 #define ALPHA_SIZE 26 //number of letters in our alphabet
 #define BORDER ALPHA_SIZE
-#define MINWORDLENGTH 4
+#define MINWORDLENGTH 3
 #define BOARDROWS (NUMROWS+2)
 #define BOARDSIZE (NUMCOLS+2)*BOARDROWS
 #define MAXWORDSLOGSIZE 1000
+#define ROUNDTIME 30
 
 typedef struct {
     BOOL highlighted;
