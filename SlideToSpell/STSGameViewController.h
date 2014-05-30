@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "STSGameLogic.h"
 
-@class STSViewController;
+@class STSGameViewController;
 
 @interface STSScrollView : UIView {
     UILabel *labels[NUMROWS*3];
@@ -21,14 +21,13 @@
 @interface STSGridView : UIView {
     UILabel *labels[GRIDSIZE];
 }
-@property (weak, nonatomic) STSViewController *parent;
+@property (weak, nonatomic) STSGameViewController *parent;
 -(void)halfHighlight:(int)idx;
 @end
 
-@interface STSViewController : UIViewController
-@property (nonatomic) NSInteger score;
+@interface STSGameViewController : UIViewController<UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *lastWord;
-@property (strong, nonatomic) IBOutlet UILabel *labelWordToFind;
+@property (strong, nonatomic) IBOutlet UILabel *labelTime;
 @property (strong, nonatomic) IBOutlet UILabel *labelScore;
 @property (strong, nonatomic) IBOutlet STSGridView *gridView;
 

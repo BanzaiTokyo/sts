@@ -7,7 +7,7 @@
 //
 
 #import "STSAppDelegate.h"
-#import "STSViewController.h"
+#import "STSGameViewController.h"
 
 @implementation STSAppDelegate
 

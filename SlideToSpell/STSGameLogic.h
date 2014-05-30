@@ -15,9 +15,10 @@
 
 #define ALPHA_SIZE 26 //number of letters in our alphabet
 #define BORDER ALPHA_SIZE
-#define MINWORDLENGTH 3
+#define MINWORDLENGTH 4
 #define BOARDROWS (NUMROWS+2)
 #define BOARDSIZE (NUMCOLS+2)*BOARDROWS
+#define MAXWORDSLOGSIZE 1000
 
 typedef struct {
     BOOL highlighted;
@@ -28,7 +29,8 @@ GridCell grid[GRIDSIZE];
 char gridLetterCount[ALPHA_SIZE]; //char is just for 1-byte size, anyway array value cannot be larger than GRIDSIZE
 NSMutableArray *Cascads, *Words, *wordsLog;
 NSArray *allWords, *cascadeToFold;
-NSString *wordToFind;
+BOOL zenMode;
+int score, highScore;
 
 @interface Trie: NSObject {
 @public
@@ -45,6 +47,5 @@ int letterScore[ALPHA_SIZE];
 +(void)findCascades;
 +(int)calcCascadeScore:(NSArray*)word;
 +(void)countGridLetters;
-+(BOOL)wordCanBePuzzled;
 +(NSArray *)getCascadeToFold;
 @end

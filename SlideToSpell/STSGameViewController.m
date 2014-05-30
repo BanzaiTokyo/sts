@@ -7,7 +7,7 @@
 //
 
 #import "AudioToolbox/AudioToolbox.h"
-#import "STSViewController.h"
+#import "STSGameViewController.h"
 
 #define NORMALCOLOR [UIColor whiteColor]
 #define HIGHLIGHTCOLOR [UIColor redColor]
@@ -15,15 +15,19 @@
 #define FLASHSCALEFACTOR 2
 #define FALLTIME 0.6
 
+#define ROUNDTIME 30
+
 CGSize screenSize, cellSize;
 
 int touchedRow, touchedCol;
 BOOL scrollingHorizontal, fallSeveralColumns;
 
-@interface STSViewController () {
-    BOOL isScrolling;
+@interface STSGameViewController () {
+    BOOL isScrolling, lettersFalling;
+    NSTimeInterval gameTime;
     STSScrollView *scroller;
     UITapGestureRecognizer *tapGesture;
+    NSTimer *timer;
 }
 -(void)checkAfterPush;
 @end
@@ -68,8 +72,8 @@ BOOL scrollingHorizontal, fallSeveralColumns;
             int minX = NUMCOLS, maxX = 0;
             for (NSNumber *n in cascade) {
                 int i = [n intValue];
-                minX = MIN(i, minX);
-                maxX = MAX(i, maxX);
+                minX = MIN(i/NUMROWS, minX);
+                maxX = MAX(i/NUMROWS, maxX);
                 [labels[i] removeFromSuperview];
                 labels[i] = nil;
             }
@@ -237,7 +241,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
 }
 @end
 
-@implementation STSViewController
+@implementation STSGameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -252,34 +256,37 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     
 }
 - (IBAction)initGame {
-    self.score = 0;
-    for (int i=0; i<GRIDSIZE; i++) {
-        grid[i].highlighted = NO;
-        grid[i].letter = [GameLogic getNextLetter];
-        [_gridView setLetterAtIndex:i];
-    }
-    [GameLogic countGridLetters];
-    _lastWord.text = @"";
+    score = 0;
+    [wordsLog removeAllObjects];
     do {
-        int idx = arc4random() % (allWords.count/2-2753) + 2753;
-        wordToFind = [allWords objectAtIndex:idx*2];
-        if (!wordToFind)
-            wordToFind = @"PITON";
-        else
-            wordToFind = [wordToFind uppercaseString];
-    } while (![GameLogic wordCanBePuzzled]);
-    _labelWordToFind.text = wordToFind;
+        for (int i=0; i<GRIDSIZE; i++) {
+            grid[i].highlighted = NO;
+            grid[i].letter = [GameLogic getNextLetter];
+            [_gridView setLetterAtIndex:i];
+        }
+        [GameLogic findCascades];
+    } while (Cascads.count > 0);
+    lettersFalling = NO;
+    _lastWord.text = @"";
     isScrolling = NO;
     scroller = nil;
     tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapField:)];
     [_gridView addGestureRecognizer:tapGesture];
-    [self checkAfterPush];
+    if (zenMode)
+        _labelTime.text = @"---";
+    else {
+        gameTime = ROUNDTIME+1;
+        [self tick]; //to display gameTime
+        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+    }
 }
 
 
 CGPoint prevTouch;
 int prevCol, prevRow;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (gameTime <= 0 && !zenMode)
+        return;
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:_gridView];
     prevTouch = p;
@@ -287,6 +294,8 @@ int prevCol, prevRow;
     touchedRow = prevRow = p.y / cellSize.height;
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (gameTime <= 0 && !zenMode)
+        return;
     UITouch *touch = [touches anyObject];
     CGPoint p = [touch locationInView:_gridView];
     int col = p.x / cellSize.width, row = p.y / cellSize.height;
@@ -342,6 +351,8 @@ int prevCol, prevRow;
 }
 
 -(void)tapField:(UIGestureRecognizer *)gestureRecognizer {
+    if (gameTime <= 0 && !zenMode)
+        return;
     if (isScrolling)
         return;
     CGPoint p = [gestureRecognizer locationInView:_gridView];
@@ -378,19 +389,17 @@ int prevCol, prevRow;
     for (NSNumber *n in cascadeToFold)
         [_gridView setLetterAtIndex:[n intValue]];
 
-    [GameLogic countGridLetters];
-    if (![GameLogic wordCanBePuzzled]) {
-        _labelWordToFind.text = @"---";
-    }
+    if (cascadeToFold)
+        [self flashCascade:cascadeToFold];
     else
-        _labelWordToFind.text = wordToFind;
-    //if (cascadeToFold)
-      //  [self flashCascade:cascadeToFold];
+        lettersFalling = NO;
 }
 
 -(void)flashCascade:(NSArray *)cascade {
-    [_gridView flashCascade:cascade];
-    self.score += [GameLogic calcCascadeScore:cascade];
+    lettersFalling = YES;
+    score += [GameLogic calcCascadeScore:cascade];
+    highScore = MAX(score, highScore);
+    _labelScore.text = [NSString stringWithFormat:@"%d", score];
     _lastWord.text = @"";
     for (NSNumber *n in cascade) {
         int i = [n intValue];
@@ -398,10 +407,48 @@ int prevCol, prevRow;
         grid[i].letter = 0;
         grid[i].highlighted = NO;
     }
+    if (_lastWord.text.length) {
+        if (wordsLog.count > MAXWORDSLOGSIZE)
+            [wordsLog removeObjectAtIndex:0];
+        [wordsLog addObject:_lastWord.text];
+    }
+    [_gridView flashCascade:cascade];
 }
 
--(void)setScore:(NSInteger)score {
-    _score = score;
-    _labelScore.text = [NSString stringWithFormat:@"%d", score];
+-(void)tick {
+    gameTime -= 1.0;
+    if (gameTime < 0)
+        gameTime = 0;
+    long min = (long)gameTime / 60;    // divide two longs, truncates
+    long sec = (long)gameTime % 60;    // remainder of long divide
+    _labelTime.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
+    if (gameTime <= 0 && !lettersFalling) {
+        if (isScrolling)
+            [self touchesEnded:nil withEvent:nil];
+        [timer invalidate];
+        timer = nil;
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game over" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+        _labelTime.text = @"Game over";
+    }
+}
+- (IBAction)stopGame {
+    if (timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+    if (!lettersFalling) {
+        if (isScrolling)
+            [self touchesEnded:nil withEvent:nil];
+        if (highScore > score) {
+            [[NSUserDefaults standardUserDefaults] setInteger:highScore forKey:@"highScore"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self stopGame];
 }
 @end

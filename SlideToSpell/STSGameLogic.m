@@ -191,20 +191,6 @@ int children[4];
         gridLetterCount[grid[i].letter-65]++;
 }
 
-+(BOOL)wordCanBePuzzled {
-    int i;
-    char wordLetterCount[ALPHA_SIZE];
-    memset(wordLetterCount, 0, ALPHA_SIZE);
-    for (i=0; i<wordToFind.length; i++) {
-        char n = [wordToFind characterAtIndex:i] - 65;
-        wordLetterCount[n]++;
-    }
-    BOOL result = YES;
-    for (i=0; i<ALPHA_SIZE; i++)
-        result = result && wordLetterCount[i] <= gridLetterCount[i];
-    return result;
-}
-
 +(int)longestStraightSegment:(NSArray *)cascade {
     int i, result = 0, cell1, cell2, row, col, prevRow, prevCol, isHorizontal;
     if ([cascade count] < 2)
