@@ -251,7 +251,6 @@ inn
 ion
 ire
 irk
-ism
 its
 ivy
 jab
@@ -354,13 +353,11 @@ nog
 nor
 not
 now
-nth
 nub
 nun
 nut
 oaf
 oak
-oar
 oat
 odd
 ode
@@ -435,7 +432,6 @@ rod
 rot
 row
 rub
-rue
 rug
 rum
 run
@@ -457,7 +453,6 @@ sex
 she
 shy
 sib
-sic
 sin
 sip
 sir
@@ -533,7 +528,6 @@ veg
 vet
 vex
 via
-vid
 vie
 vim
 wad
@@ -573,7 +567,6 @@ yet
 yew
 yin
 yip
-yod
 yon
 you
 yuk
@@ -586,7 +579,6 @@ zig
 zip
 zit
 zoo
-zzz
 ate
 did
 got
