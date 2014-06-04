@@ -8,6 +8,7 @@
 
 #import "AudioToolbox/AudioToolbox.h"
 #import "STSGameViewController.h"
+#import <GameKit/GameKit.h>
 
 #define NORMALCOLOR [UIColor colorWithWhite:224/255.0 alpha:1.0]
 #define HIGHLIGHTCOLOR [UIColor colorWithRed:230/255.0 green:163/255.0 blue:239/255.0 alpha:1.0]
@@ -43,6 +44,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     int x = idx / NUMROWS, y = idx % NUMROWS;
     CGRect r = CGRectMake(x*cellSize.width, y*cellSize.height, cellSize.width, cellSize.height);
     r = CGRectInset(r, 1, 1);
+    r = CGRectIntegral(r);
     labels[idx] = [[UILabel alloc] initWithFrame:r];
     labels[idx].textAlignment = NSTextAlignmentCenter;
     labels[idx].font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:cellSize.height];
@@ -57,7 +59,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
         labels[idx].backgroundColor = HIGHLIGHTCOLOR;
     else
         labels[idx].backgroundColor = NORMALCOLOR;
-    labels[idx].text = [NSString stringWithFormat:@"%c", grid[idx].letter];
+    labels[idx].text = [NSString stringWithFormat:@"%c\u00a0\u00a0\u00a0\u00a0\u00a0", grid[idx].letter];
     UILabel *number = labels[idx].subviews[0];
     if (grid[idx].letter >= 65) {
         int n = defLetterScore[grid[idx].letter-65];
@@ -449,7 +451,7 @@ CGPoint prevTouch;
     long sec = (long)gameTime % 60;    // remainder of long divide
     _labelTime.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
     if (gameTime < 30)
-        _labelTime.textColor = [UIColor colorWithRed:90/255.0 green:0 blue:0 alpha:1.0];
+        _labelTime.textColor = [UIColor colorWithRed:(letterColor[8] >> 16)/255.0 green:(letterColor[8] >> 8 & 255)/255.0 blue:(letterColor[8] & 255)/255.0 alpha:1.0];
     if (gameTime <= 0 && !lettersFalling) {
         if (isScrolling)
             [self touchesEnded:nil withEvent:nil];
@@ -461,11 +463,12 @@ CGPoint prevTouch;
 }
 - (IBAction)pauseGame {
     if (!zenMode) {
-        if (paused)
+        if (paused) {
+            [self closePause];
             return;
+        }
         paused = YES;
         _pauseView.hidden = NO;
-        _btnPause.enabled = NO;
         [_btnPause setTitleColor: [UIColor lightGrayColor] forState:UIControlStateNormal];
         [((UITableViewController *)self.childViewControllers[0]).tableView reloadData];
         CGRect r = _pauseView.frame;
@@ -484,9 +487,12 @@ CGPoint prevTouch;
     if (!lettersFalling) {
         if (isScrolling)
             [self touchesEnded:nil withEvent:nil];
-        if (highScore > score) {
-            [[NSUserDefaults standardUserDefaults] setInteger:highScore forKey:@"highScore"];
+        if (!gameCenterDisabled)
+            [self reportGCScore];
+        if (score > highScore) {
+            [[NSUserDefaults standardUserDefaults] setInteger:highScore forKey:leaderboards[difficulty]];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            [self.parentViewController viewWillAppear:YES];
         }
         for (int i=0; i<GRIDSIZE; i++) {
             grid[i].highlighted = NO;
@@ -500,7 +506,7 @@ CGPoint prevTouch;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self stopGame];
 }
-- (IBAction)closePause:(id)sender {
+- (IBAction)closePause {
     [_btnPause setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
     CGRect r = _pauseView.frame;
     r.size.height = 0;
@@ -510,12 +516,17 @@ CGPoint prevTouch;
         if (finished) {
             _pauseView.hidden = YES;
             paused = NO;
-            _btnPause.enabled = YES;
         }
     }];
 }
 
 - (IBAction)returnActionForSegue:(UIStoryboardSegue *)returnSegue {
+}
+
+-(void)reportGCScore {
+    GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: leaderboards[difficulty]];
+    scoreReporter.value = score;
+    [GKScore reportScores:@[scoreReporter] withCompletionHandler:nil];
 }
 
 @end

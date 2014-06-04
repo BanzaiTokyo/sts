@@ -22,5 +22,6 @@
     difficulty = sender.selectedSegmentIndex;
     [[NSUserDefaults standardUserDefaults] setInteger:difficulty forKey:@"difficulty"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [self.parentViewController viewWillAppear:YES];
 }
 @end

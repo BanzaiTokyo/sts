@@ -9,6 +9,7 @@
 #import "STSGameLogic.h"
 
 int defLetterScore[ALPHA_SIZE] = {/*A*/1, /*B*/3, /*C*/3, /*D*/3, /*E*/1, /*F*/4, /*G*/3, /*H*/4, /*I*/1, /*J*/9, /*K*/5, /*L*/2, /*M*/3, /*N*/1, /*O*/1, /*P*/3, /*Q*/10, /*R*/1, /*S*/1, /*T*/1, /*U*/2, /*V*/4, /*W*/6, /*X*/7, /*Y*/4, /*Z*/9};
+NSString *leaderboards[3] = {@"easy", @"medium", @"hard"};
 
 @implementation Trie
 -(id)init {
@@ -46,20 +47,6 @@ int children[4];
 +(char) getNextLetter {
     char x;
     if (difficulty == 0) {
-        char freq[84] = {
-            'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C',
-            'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
-            'F', 'F', 'F', 'G', 'G', 'G', 'G', 'H', 'H', 'H',
-            'I', 'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L',
-            'L', 'L', 'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N',
-            'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q', 'R',
-            'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T',
-            'T', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'X',
-            'Y', 'Y', 'Z', 'Z'};
-        x = arc4random() % sizeof(freq);
-        x = freq[x];
-    }
-    else {
         char freq[98] = {
             'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B',
             'B', 'C', 'C', 'D', 'D', 'D', 'D', 'E', 'E', 'E',
@@ -71,6 +58,20 @@ int children[4];
             'R', 'R', 'R', 'R', 'R', 'R', 'S', 'S', 'S', 'S',
             'T', 'T', 'T', 'T', 'T', 'T', 'U', 'U', 'U', 'U',
             'V', 'V', 'W', 'W', 'X', 'Y', 'Y', 'Z'};
+        x = arc4random() % sizeof(freq);
+        x = freq[x];
+    }
+    else {
+        char freq[84] = {
+            'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C',
+            'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
+            'F', 'F', 'F', 'G', 'G', 'G', 'G', 'H', 'H', 'H',
+            'I', 'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L',
+            'L', 'L', 'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N',
+            'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q', 'R',
+            'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T',
+            'T', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'X',
+            'Y', 'Y', 'Z', 'Z'};
         x = arc4random() % sizeof(freq);
         x = freq[x];
     }

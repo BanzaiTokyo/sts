@@ -13,6 +13,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    gameCenterDisabled = NO;
+    __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    if (!localPlayer.isAuthenticated)
+        localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error) {
+            if (viewController != nil) {
+                [self presentViewController:viewController animated:YES completion:nil];
+            }
+            else if (error)
+                gameCenterDisabled = YES;
+        };
     [GameLogic getNextLetter];
     CGSize cellSize;
     cellSize.width = _gridView.frame.size.width / NUMCOLS;
@@ -28,6 +38,7 @@
         int x = idx / NUMROWS, y = idx % NUMROWS;
         CGRect r = CGRectMake(x*cellSize.width, y*cellSize.height, cellSize.width, cellSize.height);
         r = CGRectInset(r, 1, 1);
+        r = CGRectIntegral(r);
         UILabel *label = [[UILabel alloc] initWithFrame:r];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:cellSize.height];
@@ -48,14 +59,34 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    int highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+    highScore = [[NSUserDefaults standardUserDefaults] integerForKey:leaderboards[difficulty]];
     _labelHighScore.text = [NSString stringWithFormat:@"%d", highScore];
+    if (gameCenterDisabled)
+        return;
+    GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] init];
+    leaderboardRequest.category = leaderboards[difficulty];
+    [leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores,NSError*error) {
+        highScore = (int)leaderboardRequest.localPlayerScore.value;
+        _labelHighScore.text = [NSString stringWithFormat:@"%d", highScore];
+     }];
 }
 
 - (IBAction)returnActionForSegue:(UIStoryboardSegue *)returnSegue {
 }
 
 - (IBAction)goGameCenter:(id)sender {
+    GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+    if (!gameCenterController)
+        return;
+    gameCenterController.gameCenterDelegate = self;
+    gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
+    gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeToday;
+    gameCenterController.leaderboardCategory = leaderboards[difficulty];
+    [self presentViewController: gameCenterController animated: YES completion:nil];
+}
+
+-(void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController {
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)goFeedback:(id)sender {

@@ -30,8 +30,10 @@ GridCell grid[GRIDSIZE];
 char gridLetterCount[ALPHA_SIZE]; //char is just for 1-byte size, anyway array value cannot be larger than GRIDSIZE
 NSMutableArray *Cascads, *Words, *wordsLog;
 NSArray *allWords, *cascadeToFold;
-BOOL zenMode;
+BOOL zenMode, gameCenterDisabled;
 int score, highScore, difficulty;
+
+extern NSString *leaderboards[3];
 
 extern int defLetterScore[ALPHA_SIZE];
 

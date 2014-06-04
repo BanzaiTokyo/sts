@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
 
-@interface STSHomeViewController : UIViewController
+@interface STSHomeViewController : UIViewController<GKLocalPlayerListener, GKGameCenterControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView *gridView;
 @property (strong, nonatomic) IBOutlet UIButton *btnPlay;
 @property (strong, nonatomic) IBOutlet UILabel *labelHighScore;
