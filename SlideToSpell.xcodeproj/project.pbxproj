@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8E013718193F35C5005F433C /* iconplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E013717193F35C5005F433C /* iconplay@2x.png */; };
+		8E3CD8AA193FA17C00296A3B /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3CD8A9193FA17C00296A3B /* GameKit.framework */; };
 		8E63DA4B192DE1F7006EF00F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA4A192DE1F7006EF00F /* Foundation.framework */; };
 		8E63DA4D192DE1F7006EF00F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA4C192DE1F7006EF00F /* CoreGraphics.framework */; };
 		8E63DA4F192DE1F7006EF00F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E63DA4E192DE1F7006EF00F /* UIKit.framework */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		8E013717193F35C5005F433C /* iconplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconplay@2x.png"; sourceTree = "<group>"; };
+		8E3CD8A9193FA17C00296A3B /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		8E63DA47192DE1F7006EF00F /* SlideToSpell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideToSpell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E63DA4A192DE1F7006EF00F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8E63DA4C192DE1F7006EF00F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E3CD8AA193FA17C00296A3B /* GameKit.framework in Frameworks */,
 				8E63DA4D192DE1F7006EF00F /* CoreGraphics.framework in Frameworks */,
 				8E63DA4F192DE1F7006EF00F /* UIKit.framework in Frameworks */,
 				8E63DA4B192DE1F7006EF00F /* Foundation.framework in Frameworks */,
@@ -109,6 +112,7 @@
 		8E63DA49192DE1F7006EF00F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8E3CD8A9193FA17C00296A3B /* GameKit.framework */,
 				8E63DA4A192DE1F7006EF00F /* Foundation.framework */,
 				8E63DA4C192DE1F7006EF00F /* CoreGraphics.framework */,
 				8E63DA4E192DE1F7006EF00F /* UIKit.framework */,
