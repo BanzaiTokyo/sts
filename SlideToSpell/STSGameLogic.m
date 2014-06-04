@@ -61,7 +61,7 @@ int children[4];
         x = arc4random() % sizeof(freq);
         x = freq[x];
     }
-    else {
+    else if (difficulty == 1){
         char freq[84] = {
             'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C',
             'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
@@ -69,6 +69,20 @@ int children[4];
             'I', 'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L',
             'L', 'L', 'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N',
             'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q', 'R',
+            'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T',
+            'T', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'X',
+            'Y', 'Y', 'Z', 'Z'};
+        x = arc4random() % sizeof(freq);
+        x = freq[x];
+    }
+    else {
+        char freq[84] = {
+            'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C',
+            'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
+            'F', 'F', 'F', 'G', 'G', 'G', 'G', 'H', 'H', 'H',
+            'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L', 'L',
+            'L', 'L', 'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N',
+            'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q', 'R', 'R',
             'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T',
             'T', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'X',
             'Y', 'Y', 'Z', 'Z'};

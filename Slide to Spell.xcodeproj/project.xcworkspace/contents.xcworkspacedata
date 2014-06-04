@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SlideToSpell.xcodeproj">
+      location = "self:Slide to Spell.xcodeproj">
    </FileRef>
 </Workspace>
