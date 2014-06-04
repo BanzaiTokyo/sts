@@ -29,7 +29,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *lastWord;
 @property (strong, nonatomic) IBOutlet UILabel *labelTime;
 @property (strong, nonatomic) IBOutlet UILabel *labelScore;
-@property (strong, nonatomic) IBOutlet UIButton *btnMenu;
+@property (strong, nonatomic) IBOutlet UIButton *btnPause;
 @property (strong, nonatomic) IBOutlet STSGridView *gridView;
 @property (strong, nonatomic) IBOutlet UIView *pauseView;
 

@@ -8,6 +8,7 @@
 
 #import "STSSettingsViewController.h"
 #import "STSAppDelegate.h"
+#import "STSGameLogic.h"
 
 @implementation STSSettingsViewController
 
@@ -18,7 +19,8 @@
 }
 
 - (IBAction)setDifficulty:(UISegmentedControl *)sender {
-    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex forKey:@"difficulty"];
+    difficulty = sender.selectedSegmentIndex;
+    [[NSUserDefaults standardUserDefaults] setInteger:difficulty forKey:@"difficulty"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

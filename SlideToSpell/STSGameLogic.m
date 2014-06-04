@@ -26,16 +26,17 @@ int children[4];
 
 @implementation GameLogic
 +(void) initialize {
-  memcpy(letterScore, defLetterScore, sizeof(defLetterScore));
-  
-  children[0] = -BOARDROWS;  children[1] = -1;
-  children[2] = 1;  children[3] = BOARDROWS;
-  if (!Cascads) {
-    Cascads = [[NSMutableArray alloc] init];
-    Words = [[NSMutableArray alloc] init];
-    wordsLog = [[NSMutableArray alloc] init];
-  }
-  [GameLogic buildTrie];
+    difficulty = [[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty"];
+    memcpy(letterScore, defLetterScore, sizeof(defLetterScore));
+
+    children[0] = -BOARDROWS;  children[1] = -1;
+    children[2] = 1;  children[3] = BOARDROWS;
+    if (!Cascads) {
+        Cascads = [[NSMutableArray alloc] init];
+        Words = [[NSMutableArray alloc] init];
+        wordsLog = [[NSMutableArray alloc] init];
+    }
+    [GameLogic buildTrie];
 }
 +(void) deinitialize {
   Cascads = nil;
@@ -43,16 +44,36 @@ int children[4];
 }
 
 +(char) getNextLetter {
-  char x = arc4random() % 84;
-  char freq[84] = {
-    'A', 'A', 'A', 'A', 'A', 'B', 'B',
-    'B', 'C', 'C', 'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
-    'F', 'F',
-    'F', 'G', 'G', 'G', 'G', 'H', 'H', 'H', 'I', 'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L', 'L', 'L',
-    'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q',
-    'R', 'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T', 'T', 'U', 'U', 'U',
-    'V', 'V', 'W', 'W', 'X', 'X', 'Y', 'Y', 'Z', 'Z'};
-  x = freq[x];
+    char x;
+    if (difficulty == 0) {
+        char freq[84] = {
+            'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C',
+            'C', 'D', 'D', 'D', 'E', 'E', 'E', 'E', 'E', 'E',
+            'F', 'F', 'F', 'G', 'G', 'G', 'G', 'H', 'H', 'H',
+            'I', 'I', 'I', 'I', 'I', 'J', 'J', 'K', 'K', 'L',
+            'L', 'L', 'L', 'M', 'M', 'M', 'N', 'N', 'N', 'N',
+            'O', 'O', 'O', 'O', 'O', 'P', 'P', 'P', 'Q', 'R',
+            'R', 'R', 'R', 'S', 'S', 'S', 'S', 'T', 'T', 'T',
+            'T', 'U', 'U', 'U', 'V', 'V', 'W', 'W', 'X', 'X',
+            'Y', 'Y', 'Z', 'Z'};
+        x = arc4random() % sizeof(freq);
+        x = freq[x];
+    }
+    else {
+        char freq[98] = {
+            'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B',
+            'B', 'C', 'C', 'D', 'D', 'D', 'D', 'E', 'E', 'E',
+            'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'F',
+            'F', 'G', 'G', 'G', 'H', 'H', 'I', 'I', 'I', 'I',
+            'I', 'I', 'I', 'I', 'I', 'J', 'K', 'L', 'L', 'L',
+            'L', 'M', 'M', 'N', 'N', 'N', 'N', 'N', 'N', 'O',
+            'O', 'O', 'O', 'O', 'O', 'O', 'O', 'P', 'P', 'Q',
+            'R', 'R', 'R', 'R', 'R', 'R', 'S', 'S', 'S', 'S',
+            'T', 'T', 'T', 'T', 'T', 'T', 'U', 'U', 'U', 'U',
+            'V', 'V', 'W', 'W', 'X', 'Y', 'Y', 'Z'};
+        x = arc4random() % sizeof(freq);
+        x = freq[x];
+    }
   return x;
 }
 

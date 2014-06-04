@@ -12,6 +12,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *labelScore;
 @property (strong, nonatomic) IBOutlet UILabel *labelHighScore;
 @property (strong, nonatomic) IBOutlet UISwitch *switchZenMode;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

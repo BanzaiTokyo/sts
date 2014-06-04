@@ -55,25 +55,25 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2:00" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="RPo-Sk-6dY">
-                                        <rect key="frame" x="143" y="21.5" width="34" height="21"/>
+                                        <rect key="frame" x="128" y="16" width="64" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="wNa-Md-iVg">
-                                        <rect key="frame" x="204.99999566268394" y="21.5" width="38" height="21"/>
+                                        <rect key="frame" x="192" y="16" width="64" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last word" lineBreakMode="tailTruncation" minimumFontSize="9" id="SS5-tr-vo3">
-                                        <rect key="frame" x="5" y="21.5" width="98" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last word" lineBreakMode="tailTruncation" minimumFontSize="6" id="SS5-tr-vo3">
+                                        <rect key="frame" x="10" y="16" width="110" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JLl-0N-HfW">
-                                        <rect key="frame" x="275" y="19.5" width="30" height="25"/>
+                                        <rect key="frame" x="265" y="7" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="33"/>
                                         <state key="normal" title="≡">
@@ -91,7 +91,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="btnMenu" destination="JLl-0N-HfW" id="yF5-3k-EKV"/>
+                        <outlet property="btnPause" destination="JLl-0N-HfW" id="yfp-MB-W3s"/>
                         <outlet property="gridView" destination="GUh-DE-QQI" id="Xmq-QU-HpX"/>
                         <outlet property="labelScore" destination="wNa-Md-iVg" id="fN3-eZ-llP"/>
                         <outlet property="labelTime" destination="RPo-Sk-6dY" id="F1A-9q-qjh"/>
@@ -161,21 +161,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2ll-gU-Hw5">
-                                        <rect key="frame" x="10" y="22" width="92" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fNI-ZJ-Sru">
-                                        <rect key="frame" x="104" y="22" width="42" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="fNI-ZJ-Sru">
+                                        <rect key="frame" x="10" y="16.5" width="236" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="smw-PC-n9L">
-                                        <rect key="frame" x="274" y="17" width="40" height="30"/>
+                                        <rect key="frame" x="254" y="0.0" width="66" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="iconhome.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -191,12 +184,13 @@
                                 <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HM3-fH-2t7">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HM3-fH-2t7">
+                                        <rect key="frame" x="0.0" y="-0.5" width="320" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.49411764705882355" green="0.57647058823529407" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <state key="normal" title="▶︎">
+                                        <inset key="titleEdgeInsets" minX="-70" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="200" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="PLAY AGAIN" image="iconplay.png">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
@@ -240,7 +234,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b7l-uG-69d">
-                                        <rect key="frame" x="0.0" y="3" width="80" height="60"/>
+                                        <rect key="frame" x="0.0" y="3" width="60" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="icongamecenter.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -249,14 +243,14 @@
                                             <action selector="goGameCenter:" destination="fwH-ob-fEC" eventType="touchUpInside" id="oJM-x3-Neh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ieK-vR-pjV">
-                                        <rect key="frame" x="79" y="22" width="42" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="ieK-vR-pjV">
+                                        <rect key="frame" x="74" y="16" width="50" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="7Y8-k8-5bY">
-                                        <rect key="frame" x="140" y="18" width="40" height="30"/>
+                                        <rect key="frame" x="135" y="1" width="50" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="iconfeedback.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -266,7 +260,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NoP-8h-jXB">
-                                        <rect key="frame" x="201" y="18" width="40" height="30"/>
+                                        <rect key="frame" x="196" y="1" width="50" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="iconsettings.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -276,7 +270,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Abi-dr-jfZ">
-                                        <rect key="frame" x="260" y="18" width="40" height="30"/>
+                                        <rect key="frame" x="255" y="1" width="50" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="iconhelp.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -422,7 +416,7 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" id="cMF-YI-9xk">
                                 <rect key="frame" x="20" y="74" width="280" height="440"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">Slide lines or columns of letters to form words spelled either vertically or horizontally. You want to get longest words possible. Each letter has a value and they are summed up in the words that you spell.  The game matches the smallest word first. And it is quite difficult to form longer words.</mutableString>
+                                <string key="text">Slide lines or columns of letters to form words spelled either vertically or horizontally. You want to get longest words possible. Each letter has a value and they are summed up in the words that you spell.  The game matches the smallest word first. And it is quite difficult to form longer words.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -462,13 +456,14 @@
     </scenes>
     <resources>
         <image name="iconback.png" width="40" height="30"/>
-        <image name="iconfeedback.png" width="80" height="60"/>
-        <image name="icongamecenter.png" width="80" height="60"/>
-        <image name="iconhelp-gray.png" width="80" height="60"/>
-        <image name="iconhelp.png" width="80" height="60"/>
-        <image name="iconhome.png" width="80" height="60"/>
-        <image name="iconsettings-gray.png" width="80" height="60"/>
-        <image name="iconsettings.png" width="80" height="60"/>
+        <image name="iconfeedback.png" width="40" height="30"/>
+        <image name="icongamecenter.png" width="40" height="30"/>
+        <image name="iconhelp-gray.png" width="40" height="30"/>
+        <image name="iconhelp.png" width="40" height="30"/>
+        <image name="iconhome.png" width="40" height="30"/>
+        <image name="iconplay.png" width="40" height="30"/>
+        <image name="iconsettings-gray.png" width="40" height="30"/>
+        <image name="iconsettings.png" width="40" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -476,6 +471,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vss-Mc-iv3"/>
+        <segue reference="z4L-bw-WWc"/>
     </inferredMetricsTieBreakers>
 </document>

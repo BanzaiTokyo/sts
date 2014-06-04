@@ -59,7 +59,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
         labels[idx].backgroundColor = NORMALCOLOR;
     labels[idx].text = [NSString stringWithFormat:@"%c", grid[idx].letter];
     UILabel *number = labels[idx].subviews[0];
-    if (grid[idx].letter > 65) {
+    if (grid[idx].letter >= 65) {
         int n = defLetterScore[grid[idx].letter-65];
         number.text = [NSString stringWithFormat:@"%d", n];
         number.textColor = [UIColor colorWithRed:(letterColor[n] >> 16)/255.0 green:((letterColor[n] >> 8) & 255)/255.0 blue:(letterColor[n] & 255)/255.0 alpha:1.0];
@@ -262,9 +262,9 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     cellSize.height = _gridView.frame.size.height / NUMROWS;
     _gridView.parent = self;
     [_gridView createGrid];
-    _lastWord.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
-    _labelTime.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
-    _labelScore.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
+    _lastWord.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:30];
+    _labelTime.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:30];
+    _labelScore.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:30];
     CGRect r = _gridView.frame;
     r.size.height = 0;
     _pauseView.frame = r;
@@ -465,7 +465,8 @@ CGPoint prevTouch;
             return;
         paused = YES;
         _pauseView.hidden = NO;
-        _btnMenu.enabled = NO;
+        _btnPause.enabled = NO;
+        [_btnPause setTitleColor: [UIColor lightGrayColor] forState:UIControlStateNormal];
         [((UITableViewController *)self.childViewControllers[0]).tableView reloadData];
         CGRect r = _pauseView.frame;
         r.size.height = self.view.frame.size.height - r.origin.y;
@@ -500,6 +501,7 @@ CGPoint prevTouch;
     [self stopGame];
 }
 - (IBAction)closePause:(id)sender {
+    [_btnPause setTitleColor: [UIColor blackColor] forState:UIControlStateNormal];
     CGRect r = _pauseView.frame;
     r.size.height = 0;
     [UIView animateWithDuration:0.5 animations:^{
@@ -508,7 +510,7 @@ CGPoint prevTouch;
         if (finished) {
             _pauseView.hidden = YES;
             paused = NO;
-            _btnMenu.enabled = YES;
+            _btnPause.enabled = YES;
         }
     }];
 }

@@ -44,6 +44,7 @@
     r.size.width = cellSize.width*3;
     r.size.height = cellSize.height*3;
     _btnPlay.frame = r;
+    _labelHighScore.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:30];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

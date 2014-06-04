@@ -31,7 +31,7 @@ char gridLetterCount[ALPHA_SIZE]; //char is just for 1-byte size, anyway array v
 NSMutableArray *Cascads, *Words, *wordsLog;
 NSArray *allWords, *cascadeToFold;
 BOOL zenMode;
-int score, highScore;
+int score, highScore, difficulty;
 
 extern int defLetterScore[ALPHA_SIZE];
 

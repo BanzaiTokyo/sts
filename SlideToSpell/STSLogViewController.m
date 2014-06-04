@@ -8,22 +8,19 @@
 
 #import "STSLogViewController.h"
 #import "STSGameLogic.h"
-
-@interface STSLogViewController ()
-
-@end
+#import "STSAppDelegate.h"
 
 @implementation STSLogViewController
 
 -(void)viewDidLoad {
     highScore = [[NSUserDefaults standardUserDefaults] integerForKey:@"highScore"];
+    [STSAppDelegate setBanzaiFont:self.view];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    _labelScore.text = [NSString stringWithFormat:@"%d", score];
+    _labelScore.text = [NSString stringWithFormat:@"YOUR SCORE: %d", score];
     _labelHighScore.text = [NSString stringWithFormat:@"%d", highScore];
     _switchZenMode.on = zenMode;
-    [_tableView reloadData];
 }
 
 - (IBAction)toggleZenMode:(id)sender {
