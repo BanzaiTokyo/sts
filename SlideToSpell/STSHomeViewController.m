@@ -58,7 +58,7 @@
 }
 
 - (IBAction)goFeedback:(id)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.banzaitokyo.com"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.banzaitokyo.com/stsfeedback"]];
 }
 
 @end

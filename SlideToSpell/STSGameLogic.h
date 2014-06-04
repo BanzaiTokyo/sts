@@ -19,7 +19,7 @@
 #define BOARDROWS (NUMROWS+2)
 #define BOARDSIZE (NUMCOLS+2)*BOARDROWS
 #define MAXWORDSLOGSIZE 1000
-#define ROUNDTIME 10
+#define ROUNDTIME 120
 
 typedef struct {
     BOOL highlighted;
