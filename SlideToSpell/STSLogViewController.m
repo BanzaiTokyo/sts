@@ -26,17 +26,11 @@
     [_tableView reloadData];
 }
 
-#pragma mark UITableViewDataSource
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return wordsLog.count;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    cell.textLabel.text = wordsLog[indexPath.row];
-    return cell;
-}
-
 - (IBAction)toggleZenMode:(id)sender {
     zenMode = _switchZenMode.on;
+}
+
+- (IBAction)goToHome:(id)sender {
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 @end

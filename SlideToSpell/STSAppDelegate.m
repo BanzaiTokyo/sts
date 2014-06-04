@@ -43,4 +43,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
++(void)setBanzaiFont:(UIView *)view {
+    const CGFloat addSize = 10.0;
+    for (UIView *v in view.subviews)
+        if ([v isKindOfClass:[UILabel class]]) {
+            UILabel *l = (UILabel *)v;
+            l.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:l.font.pointSize+addSize];
+        }
+        else if ([v isKindOfClass:[UIButton class]]) {
+            UIButton *b = (UIButton *)v;
+            b.titleLabel.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:b.titleLabel.font.pointSize+addSize];
+        }
+        else if ([v isKindOfClass:[UISegmentedControl class]]) {
+            UISegmentedControl *s = (UISegmentedControl *)v;
+            NSDictionary *a = @{NSFontAttributeName: [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:16+addSize]};
+            [s setTitleTextAttributes:a forState:UIControlStateNormal];
+        }
+        else if ([v isKindOfClass:[UIView class]])
+            [self setBanzaiFont:v];
+}
 @end

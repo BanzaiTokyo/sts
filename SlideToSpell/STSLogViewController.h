@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface STSLogViewController : UIViewController<UITableViewDataSource>
+@interface STSLogViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *labelScore;
 @property (strong, nonatomic) IBOutlet UILabel *labelHighScore;
 @property (strong, nonatomic) IBOutlet UISwitch *switchZenMode;

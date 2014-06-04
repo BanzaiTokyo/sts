@@ -105,6 +105,7 @@ int children[4];
   NSMutableArray *dsearched = [NSMutableArray arrayWithArray:searched];
   NSMutableArray *dsequence = [NSMutableArray arrayWithArray:sequence];
   
+  if (board[cubeIndex] < 0 || board[cubeIndex] > ALPHA_SIZE) return;
   p = p->children[board[cubeIndex]];
   if (!p) return;
   
@@ -176,10 +177,12 @@ int children[4];
 }
 
 +(int)calcCascadeScore:(NSArray*)word {
-  int result = 0;
-  for (NSNumber *n in word)
+    int result = 0;
+    for (NSNumber *n in word)
     result += letterScore[grid[[n intValue]].letter-65];
-  return result*word.count;
+    if (word.count > MINWORDLENGTH)
+        result *= word.count;
+    return result;
 }
 
 +(void)countGridLetters {

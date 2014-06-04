@@ -19,7 +19,7 @@
 #define BOARDROWS (NUMROWS+2)
 #define BOARDSIZE (NUMCOLS+2)*BOARDROWS
 #define MAXWORDSLOGSIZE 1000
-#define ROUNDTIME 120
+#define ROUNDTIME 10
 
 typedef struct {
     BOOL highlighted;
@@ -32,6 +32,8 @@ NSMutableArray *Cascads, *Words, *wordsLog;
 NSArray *allWords, *cascadeToFold;
 BOOL zenMode;
 int score, highScore;
+
+extern int defLetterScore[ALPHA_SIZE];
 
 @interface Trie: NSObject {
 @public

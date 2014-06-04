@@ -17,6 +17,19 @@
 		8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E63DA65192DE1F7006EF00F /* Images.xcassets */; };
 		8E63DA86192E4EF9006EF00F /* STSGameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E63DA85192E4EF9006EF00F /* STSGameLogic.m */; };
 		8E8C83B5193876D8007542B3 /* STSLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C83B4193876D8007542B3 /* STSLogViewController.m */; };
+		8E8C83B7193D844C007542B3 /* BanzaiWordsFont-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83B6193D844C007542B3 /* BanzaiWordsFont-Bold.ttf */; };
+		8E8C83BA193DC371007542B3 /* STSLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C83B9193DC371007542B3 /* STSLogTableViewController.m */; };
+		8E8C83BD193DDACD007542B3 /* STSHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C83BC193DDACD007542B3 /* STSHomeViewController.m */; };
+		8E8C83C2193E43D7007542B3 /* iconfeedback.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83BE193E43D7007542B3 /* iconfeedback.png */; };
+		8E8C83C3193E43D7007542B3 /* icongamecenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83BF193E43D7007542B3 /* icongamecenter.png */; };
+		8E8C83C4193E43D7007542B3 /* iconhelp.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83C0193E43D7007542B3 /* iconhelp.png */; };
+		8E8C83C5193E43D7007542B3 /* iconsettings.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83C1193E43D7007542B3 /* iconsettings.png */; };
+		8E8C83C7193E46C7007542B3 /* iconhome.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83C6193E46C7007542B3 /* iconhome.png */; };
+		8E8C83C9193EDDBA007542B3 /* iconback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83C8193EDDBA007542B3 /* iconback@2x.png */; };
+		8E8C83CB193EE0A0007542B3 /* iconsettings-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83CA193EE0A0007542B3 /* iconsettings-gray.png */; };
+		8E8C83CD193EEA03007542B3 /* iconhelp-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 8E8C83CC193EEA03007542B3 /* iconhelp-gray.png */; };
+		8E8C83D0193EECB7007542B3 /* STSHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C83CF193EECB7007542B3 /* STSHelpViewController.m */; };
+		8E8C83D3193EF0FB007542B3 /* STSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C83D2193EF0FB007542B3 /* STSSettingsViewController.m */; };
 		8E9B6AB9192E6A74005B4210 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E9B6AB8192E6A74005B4210 /* words.txt */; };
 		8E9B6ABD19334D2B005B4210 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
@@ -39,6 +52,23 @@
 		8E63DA85192E4EF9006EF00F /* STSGameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSGameLogic.m; sourceTree = "<group>"; };
 		8E8C83B3193876D8007542B3 /* STSLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSLogViewController.h; sourceTree = "<group>"; };
 		8E8C83B4193876D8007542B3 /* STSLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSLogViewController.m; sourceTree = "<group>"; };
+		8E8C83B6193D844C007542B3 /* BanzaiWordsFont-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BanzaiWordsFont-Bold.ttf"; sourceTree = "<group>"; };
+		8E8C83B8193DC371007542B3 /* STSLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSLogTableViewController.h; sourceTree = "<group>"; };
+		8E8C83B9193DC371007542B3 /* STSLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSLogTableViewController.m; sourceTree = "<group>"; };
+		8E8C83BB193DDACD007542B3 /* STSHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSHomeViewController.h; sourceTree = "<group>"; };
+		8E8C83BC193DDACD007542B3 /* STSHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSHomeViewController.m; sourceTree = "<group>"; };
+		8E8C83BE193E43D7007542B3 /* iconfeedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconfeedback.png; sourceTree = "<group>"; };
+		8E8C83BF193E43D7007542B3 /* icongamecenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icongamecenter.png; sourceTree = "<group>"; };
+		8E8C83C0193E43D7007542B3 /* iconhelp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconhelp.png; sourceTree = "<group>"; };
+		8E8C83C1193E43D7007542B3 /* iconsettings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconsettings.png; sourceTree = "<group>"; };
+		8E8C83C6193E46C7007542B3 /* iconhome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iconhome.png; sourceTree = "<group>"; };
+		8E8C83C8193EDDBA007542B3 /* iconback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconback@2x.png"; sourceTree = "<group>"; };
+		8E8C83CA193EE0A0007542B3 /* iconsettings-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconsettings-gray.png"; sourceTree = "<group>"; };
+		8E8C83CC193EEA03007542B3 /* iconhelp-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconhelp-gray.png"; sourceTree = "<group>"; };
+		8E8C83CE193EECB7007542B3 /* STSHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSHelpViewController.h; sourceTree = "<group>"; };
+		8E8C83CF193EECB7007542B3 /* STSHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSHelpViewController.m; sourceTree = "<group>"; };
+		8E8C83D1193EF0FB007542B3 /* STSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSSettingsViewController.h; sourceTree = "<group>"; };
+		8E8C83D2193EF0FB007542B3 /* STSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSSettingsViewController.m; sourceTree = "<group>"; };
 		8E9B6AB8192E6A74005B4210 /* words.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words.txt; sourceTree = "<group>"; };
 		8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,12 +119,20 @@
 			children = (
 				8E63DA84192E4EF9006EF00F /* STSGameLogic.h */,
 				8E63DA85192E4EF9006EF00F /* STSGameLogic.m */,
-				8E63DA59192DE1F7006EF00F /* STSAppDelegate.h */,
-				8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */,
+				8E8C83BB193DDACD007542B3 /* STSHomeViewController.h */,
+				8E8C83BC193DDACD007542B3 /* STSHomeViewController.m */,
 				8E63DA62192DE1F7006EF00F /* STSGameViewController.h */,
 				8E63DA63192DE1F7006EF00F /* STSGameViewController.m */,
 				8E8C83B3193876D8007542B3 /* STSLogViewController.h */,
 				8E8C83B4193876D8007542B3 /* STSLogViewController.m */,
+				8E8C83B8193DC371007542B3 /* STSLogTableViewController.h */,
+				8E8C83B9193DC371007542B3 /* STSLogTableViewController.m */,
+				8E8C83D1193EF0FB007542B3 /* STSSettingsViewController.h */,
+				8E8C83D2193EF0FB007542B3 /* STSSettingsViewController.m */,
+				8E8C83CE193EECB7007542B3 /* STSHelpViewController.h */,
+				8E8C83CF193EECB7007542B3 /* STSHelpViewController.m */,
+				8E63DA59192DE1F7006EF00F /* STSAppDelegate.h */,
+				8E63DA5A192DE1F7006EF00F /* STSAppDelegate.m */,
 				8E9B6ABC19334D2B005B4210 /* Storyboard.storyboard */,
 				8E63DA65192DE1F7006EF00F /* Images.xcassets */,
 				8E63DA51192DE1F7006EF00F /* Supporting Files */,
@@ -105,6 +143,15 @@
 		8E63DA51192DE1F7006EF00F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8E8C83C8193EDDBA007542B3 /* iconback@2x.png */,
+				8E8C83C6193E46C7007542B3 /* iconhome.png */,
+				8E8C83BE193E43D7007542B3 /* iconfeedback.png */,
+				8E8C83BF193E43D7007542B3 /* icongamecenter.png */,
+				8E8C83CC193EEA03007542B3 /* iconhelp-gray.png */,
+				8E8C83C0193E43D7007542B3 /* iconhelp.png */,
+				8E8C83CA193EE0A0007542B3 /* iconsettings-gray.png */,
+				8E8C83C1193E43D7007542B3 /* iconsettings.png */,
+				8E8C83B6193D844C007542B3 /* BanzaiWordsFont-Bold.ttf */,
 				8E9B6AB8192E6A74005B4210 /* words.txt */,
 				8E63DA52192DE1F7006EF00F /* SlideToSpell-Info.plist */,
 				8E63DA53192DE1F7006EF00F /* InfoPlist.strings */,
@@ -167,10 +214,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E8C83C5193E43D7007542B3 /* iconsettings.png in Resources */,
+				8E8C83C3193E43D7007542B3 /* icongamecenter.png in Resources */,
+				8E8C83C4193E43D7007542B3 /* iconhelp.png in Resources */,
+				8E8C83CD193EEA03007542B3 /* iconhelp-gray.png in Resources */,
 				8E63DA66192DE1F7006EF00F /* Images.xcassets in Resources */,
 				8E9B6ABD19334D2B005B4210 /* Storyboard.storyboard in Resources */,
 				8E9B6AB9192E6A74005B4210 /* words.txt in Resources */,
+				8E8C83C2193E43D7007542B3 /* iconfeedback.png in Resources */,
+				8E8C83B7193D844C007542B3 /* BanzaiWordsFont-Bold.ttf in Resources */,
 				8E63DA55192DE1F7006EF00F /* InfoPlist.strings in Resources */,
+				8E8C83C9193EDDBA007542B3 /* iconback@2x.png in Resources */,
+				8E8C83CB193EE0A0007542B3 /* iconsettings-gray.png in Resources */,
+				8E8C83C7193E46C7007542B3 /* iconhome.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +238,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E63DA57192DE1F7006EF00F /* main.m in Sources */,
+				8E8C83BD193DDACD007542B3 /* STSHomeViewController.m in Sources */,
+				8E8C83BA193DC371007542B3 /* STSLogTableViewController.m in Sources */,
+				8E8C83D3193EF0FB007542B3 /* STSSettingsViewController.m in Sources */,
 				8E63DA5B192DE1F7006EF00F /* STSAppDelegate.m in Sources */,
+				8E8C83D0193EECB7007542B3 /* STSHelpViewController.m in Sources */,
 				8E63DA86192E4EF9006EF00F /* STSGameLogic.m in Sources */,
 				8E63DA64192DE1F7006EF00F /* STSGameViewController.m in Sources */,
 				8E8C83B5193876D8007542B3 /* STSLogViewController.m in Sources */,

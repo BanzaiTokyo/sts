@@ -9,11 +9,14 @@
 #import "AudioToolbox/AudioToolbox.h"
 #import "STSGameViewController.h"
 
-#define NORMALCOLOR [UIColor whiteColor]
-#define HIGHLIGHTCOLOR [UIColor redColor]
+#define NORMALCOLOR [UIColor colorWithWhite:224/255.0 alpha:1.0]
+#define HIGHLIGHTCOLOR [UIColor colorWithRed:230/255.0 green:163/255.0 blue:239/255.0 alpha:1.0]
+#define SECONDARYCOLOR [UIColor colorWithRed:126/255.0 green:147/255.0 blue:209/255.0 alpha:1.0]
 #define FLASHTIME 0.3
 #define FLASHSCALEFACTOR 2
 #define FALLTIME 0.6
+
+const unsigned long letterColor[10] = {0x17417f, 0x2b8e87, 0x08874a, 0x859b29, 0xce8817, 0xff7776, 0x974ce5, 0xde06e5, 0xbd0006, 0x6b0000};
 
 CGSize screenSize, cellSize;
 
@@ -21,7 +24,7 @@ int touchedRow, touchedCol;
 BOOL scrollingHorizontal, fallSeveralColumns;
 
 @interface STSGameViewController () {
-    BOOL isScrolling, lettersFalling;
+    BOOL isScrolling, lettersFalling, paused;
     NSTimeInterval gameTime;
     STSScrollView *scroller;
     UITapGestureRecognizer *tapGesture;
@@ -42,7 +45,10 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     r = CGRectInset(r, 1, 1);
     labels[idx] = [[UILabel alloc] initWithFrame:r];
     labels[idx].textAlignment = NSTextAlignmentCenter;
-    labels[idx].font = [UIFont fontWithName:@"Helvetica Neue" size:cellSize.height];
+    labels[idx].font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:cellSize.height];
+    UILabel *number = [[UILabel alloc] initWithFrame:CGRectMake(r.size.width*0.65, r.size.height*0.1, r.size.width*0.31, r.size.height*0.25)];
+    number.textAlignment = NSTextAlignmentRight;
+    [labels[idx] addSubview:number];
     [self addSubview:labels[idx]];
 }
 
@@ -52,10 +58,18 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     else
         labels[idx].backgroundColor = NORMALCOLOR;
     labels[idx].text = [NSString stringWithFormat:@"%c", grid[idx].letter];
+    UILabel *number = labels[idx].subviews[0];
+    if (grid[idx].letter > 65) {
+        int n = defLetterScore[grid[idx].letter-65];
+        number.text = [NSString stringWithFormat:@"%d", n];
+        number.textColor = [UIColor colorWithRed:(letterColor[n] >> 16)/255.0 green:((letterColor[n] >> 8) & 255)/255.0 blue:(letterColor[n] & 255)/255.0 alpha:1.0];
+    }
+    else
+        number.text = @"";
 }
 
 -(void)halfHighlight:(int)idx {
-    labels[idx].backgroundColor = [UIColor blueColor];
+    labels[idx].backgroundColor = SECONDARYCOLOR;
 }
 
 -(void)flashCascade:(NSArray *)cascade {
@@ -196,7 +210,7 @@ BOOL scrollingHorizontal, fallSeveralColumns;
         
         labels[i] = [[UILabel alloc] initWithFrame:CGRectInset(r, 1, 1)];
         labels[i].textAlignment = NSTextAlignmentCenter;
-        labels[i].font = [UIFont fontWithName:@"Helvetica Neue" size:cellSize.height];
+        labels[i].font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:cellSize.height];
         labels[i].backgroundColor = NORMALCOLOR;
         int t;
         if (!scrollingHorizontal)
@@ -248,35 +262,48 @@ BOOL scrollingHorizontal, fallSeveralColumns;
     cellSize.height = _gridView.frame.size.height / NUMROWS;
     _gridView.parent = self;
     [_gridView createGrid];
-    [self initGame];
+    _lastWord.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
+    _labelTime.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
+    _labelScore.font = [UIFont fontWithName:@"BanzaiWordsFont-Bold" size:20];
+    CGRect r = _gridView.frame;
+    r.size.height = 0;
+    _pauseView.frame = r;
 }
-- (void)viewDidLayoutSubviews {
-    
+- (void)viewWillAppear:(BOOL)animated {
+    [self initGame];
 }
 - (IBAction)initGame {
     score = 0;
+    _labelScore.text = @"0";
     [wordsLog removeAllObjects];
-    do {
-        for (int i=0; i<GRIDSIZE; i++) {
-            grid[i].highlighted = NO;
-            grid[i].letter = [GameLogic getNextLetter];
-            [_gridView setLetterAtIndex:i];
-        }
-        [GameLogic findCascades];
-    } while (Cascads.count > 0);
-    lettersFalling = NO;
+    lettersFalling = YES;
+        do {
+            for (int i=0; i<GRIDSIZE; i++) {
+                grid[i].highlighted = NO;
+                grid[i].letter = [GameLogic getNextLetter];
+                [_gridView setLetterAtIndex:i];
+            }
+            [GameLogic findCascades];
+        } while (Cascads.count > 0);
+        lettersFalling = NO;
     _lastWord.text = @"";
     isScrolling = NO;
     scroller = nil;
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapField:)];
-    [_gridView addGestureRecognizer:tapGesture];
+    if (!tapGesture) {
+        tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapField:)];
+        [_gridView addGestureRecognizer:tapGesture];
+    }
+    _labelTime.textColor = [UIColor blackColor];
     if (zenMode)
         _labelTime.text = @"---";
     else {
         gameTime = ROUNDTIME+1;
         [self tick]; //to display gameTime
-        timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
+        if (!zenMode)
+            timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(tick) userInfo:nil repeats:YES];
     }
+    paused = NO;
+    _pauseView.hidden = YES;
 }
 
 
@@ -413,12 +440,16 @@ CGPoint prevTouch;
 }
 
 -(void)tick {
+    if (paused)
+        return;
     gameTime -= 1.0;
     if (gameTime < 0)
         gameTime = 0;
     long min = (long)gameTime / 60;    // divide two longs, truncates
     long sec = (long)gameTime % 60;    // remainder of long divide
     _labelTime.text = [NSString stringWithFormat:@"%02ld:%02ld", min, sec];
+    if (gameTime < 30)
+        _labelTime.textColor = [UIColor colorWithRed:90/255.0 green:0 blue:0 alpha:1.0];
     if (gameTime <= 0 && !lettersFalling) {
         if (isScrolling)
             [self touchesEnded:nil withEvent:nil];
@@ -426,10 +457,25 @@ CGPoint prevTouch;
         timer = nil;
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Game over" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [av show];
-        _labelTime.text = @"Game over";
     }
 }
-- (IBAction)stopGame {
+- (IBAction)pauseGame {
+    if (!zenMode) {
+        if (paused)
+            return;
+        paused = YES;
+        _pauseView.hidden = NO;
+        _btnMenu.enabled = NO;
+        [((UITableViewController *)self.childViewControllers[0]).tableView reloadData];
+        CGRect r = _pauseView.frame;
+        r.size.height = self.view.frame.size.height - r.origin.y;
+        [UIView animateWithDuration:0.5 animations:^{
+            _pauseView.frame = r;
+        }];
+        return;
+    }
+}
+-(void)stopGame {
     if (timer) {
         [timer invalidate];
         timer = nil;
@@ -441,11 +487,33 @@ CGPoint prevTouch;
             [[NSUserDefaults standardUserDefaults] setInteger:highScore forKey:@"highScore"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        [self dismissViewControllerAnimated:YES completion:nil];
+        for (int i=0; i<GRIDSIZE; i++) {
+            grid[i].highlighted = NO;
+            grid[i].letter = 32;
+            [_gridView setLetterAtIndex:i];
+        }
+        [self performSegueWithIdentifier:@"viewLog" sender:nil];
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self stopGame];
 }
+- (IBAction)closePause:(id)sender {
+    CGRect r = _pauseView.frame;
+    r.size.height = 0;
+    [UIView animateWithDuration:0.5 animations:^{
+        _pauseView.frame = r;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            _pauseView.hidden = YES;
+            paused = NO;
+            _btnMenu.enabled = YES;
+        }
+    }];
+}
+
+- (IBAction)returnActionForSegue:(UIStoryboardSegue *)returnSegue {
+}
+
 @end
