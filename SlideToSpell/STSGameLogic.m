@@ -27,7 +27,10 @@ int children[4];
 
 @implementation GameLogic
 +(void) initialize {
-    difficulty = [[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty"];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"difficulty"])
+        difficulty = [[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty"];
+    else
+        difficulty = 1;
     memcpy(letterScore, defLetterScore, sizeof(defLetterScore));
 
     children[0] = -BOARDROWS;  children[1] = -1;

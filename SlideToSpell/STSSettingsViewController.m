@@ -15,7 +15,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [STSAppDelegate setBanzaiFont:self.view];
-    _difficultySegment.selectedSegmentIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty"];
+    _difficultySegment.selectedSegmentIndex = difficulty;
 }
 
 - (IBAction)setDifficulty:(UISegmentedControl *)sender {

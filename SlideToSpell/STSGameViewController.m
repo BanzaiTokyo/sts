@@ -59,8 +59,9 @@ BOOL scrollingHorizontal, fallSeveralColumns;
         labels[idx].backgroundColor = HIGHLIGHTCOLOR;
     else
         labels[idx].backgroundColor = NORMALCOLOR;
-    labels[idx].text = [NSString stringWithFormat:@"%c\u00a0\u00a0\u00a0\u00a0\u00a0", grid[idx].letter];
+    labels[idx].text = [NSString stringWithFormat:@"%c", grid[idx].letter];
     UILabel *number = labels[idx].subviews[0];
+    number.backgroundColor = [UIColor clearColor];
     if (grid[idx].letter >= 65) {
         int n = defLetterScore[grid[idx].letter-65];
         number.text = [NSString stringWithFormat:@"%d", n];
